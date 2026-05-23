@@ -918,6 +918,25 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('데이터 저장 중 오류가 발생했습니다. 브라우저 용량 초과일 수 있습니다.');
         }
 
+        // Instantly generate and trigger download of data.js in local environment (Master Admin Mode)
+        if (isLocal) {
+            try {
+                const jsContent = "window.EXCEL_DATA = " + JSON.stringify(mainDataset, null, 4) + ";";
+                const blob = new Blob([jsContent], { type: 'application/javascript;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'data.js';
+                document.body.appendChild(link); // Append to DOM for Microsoft Edge/Firefox compatibility
+                link.click();
+                document.body.removeChild(link); // Clean up DOM immediately
+                URL.revokeObjectURL(link.href);
+                showToast('data.js 파일이 자동 다운로드되었습니다! 작업 폴더의 기존 data.js를 덮어써주세요.');
+            } catch (err) {
+                console.error('Failed to trigger data.js download:', err);
+                showToast('data.js 파일 자동 다운로드 중 오류가 발생했습니다.');
+            }
+        }
+
         // Refresh Stats Dashboard
         calculateStats(mainDataset);
         
