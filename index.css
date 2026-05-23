@@ -404,6 +404,7 @@ body {
     font-weight: 400;
     outline: none;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    ime-mode: active; /* Enforce Korean IME mode on focus */
 }
 
 #global-search-input:focus {

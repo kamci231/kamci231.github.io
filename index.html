@@ -3,26 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="민원 전화 돌리기(핑퐁)를 방지하고, 직원 업무 분장 및 행정번호(내선번호)를 쉽고 빠르게 검색할 수 있는 스마트 검색 시스템 '핑퐁스톱'입니다.">
-    <meta name="keywords" content="핑퐁스톱, 민원 전화, 핑퐁 방지, 업무 분장, 행정번호, 내선번호, 스마트 검색기, 양구군">
-    <meta name="author" content="PingPongStop">
-    
-    <!-- Open Graph (Facebook, KakaoTalk, etc.) -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kamci231.github.io/">
-    <meta property="og:title" content="핑퐁스톱 - 민원 전화 핑퐁 방지 검색기">
-    <meta property="og:description" content="직원 업무 분장 및 내선번호를 1초 만에 스마트하게 검색하여 민원 핑퐁 전화를 원천 차단하는 솔루션.">
-    <meta property="og:image" content="https://kamci231.github.io/logo_v2.png">
-    
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://kamci231.github.io/">
-    <meta name="twitter:title" content="핑퐁스톱 - 민원 전화 핑퐁 방지 검색기">
-    <meta name="twitter:description" content="직원 업무 분장 및 내선번호를 1초 만에 스마트하게 검색하여 민원 핑퐁 전화를 원천 차단하는 솔루션.">
-    <meta name="twitter:image" content="https://kamci231.github.io/logo_v2.png">
-    
+    <meta name="description" content="양구군 직원 업무 분장 및 행정번호(내선번호)를 쉽고 빠르게 검색할 수 있는 프리미엄 검색 시스템입니다.">
     <title>핑퐁스톱 - 민원 전화 핑퐁 방지 검색기</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -123,7 +104,7 @@
                             <div class="search-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                             </div>
-                            <input type="text" id="global-search-input" placeholder="담당업무 내용으로 검색..." autocomplete="off">
+                            <input type="text" id="global-search-input" placeholder="담당업무 내용으로 검색..." autocomplete="off" autofocus lang="ko" style="ime-mode: active;">
                             <button id="search-clear-btn" aria-label="검색어 초기화" style="display: none;">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                             </button>
@@ -146,6 +127,10 @@
                             </div>
 
                             <div class="action-buttons-group">
+                                <button id="btn-reset-dataset" class="secondary-btn" title="기본 데이터로 초기화" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                                    <span>데이터 초기화</span>
+                                </button>
                                 <button id="excel-upload-trigger-btn" class="secondary-btn" title="새로운 엑셀 파일 가져오기">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                                     <span>엑셀 업로드</span>
@@ -306,7 +291,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn-reset-original" class="btn btn-outline" style="margin-right: auto; color: var(--accent-purple);" title="업로드한 데이터를 모두 삭제하고 초기 데이터셋으로 되돌립니다.">초기 데이터 복구</button>
                     <button id="btn-cancel-import" class="btn btn-outline">취소</button>
                     <button id="btn-confirm-import" class="btn btn-primary" disabled>시스템에 적용하기</button>
                 </div>

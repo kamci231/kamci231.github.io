@@ -3,17 +3,17 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Core State (Load persistent data from localStorage if exists, otherwise fallback to default Excel)
+    // 1. Core State
     let mainDataset = [];
     try {
-        const savedData = localStorage.getItem('pingpong_excel_data');
+        const savedData = localStorage.getItem('excel_dataset');
         if (savedData) {
             mainDataset = JSON.parse(savedData);
         } else {
             mainDataset = window.EXCEL_DATA || [];
         }
-    } catch (err) {
-        console.error('Failed to load saved dataset from localStorage:', err);
+    } catch (e) {
+        console.error('Failed to load dataset from localStorage:', e);
         mainDataset = window.EXCEL_DATA || [];
     }
     let filteredDataset = [];
@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Actions
         btnUploadTrigger: document.getElementById('excel-upload-trigger-btn'),
         btnExportExcel: document.getElementById('btn-export-excel'),
+        btnResetDataset: document.getElementById('btn-reset-dataset'),
         
         // Results Table
         tableBody: document.getElementById('directory-table-body'),
@@ -87,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         previewTableBody: document.getElementById('preview-table-body'),
         btnCancelImport: document.getElementById('btn-cancel-import'),
         btnConfirmImport: document.getElementById('btn-confirm-import'),
-        btnResetOriginal: document.getElementById('btn-reset-original'),
         
         // Toast
         toastContainer: document.getElementById('toast-container'),
@@ -107,12 +107,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let rankCarouselPage = 0;
     let totalRankPages = 1;
 
+    function updateResetButtonVisibility() {
+        if (!elements.btnResetDataset) return;
+        try {
+            if (localStorage.getItem('excel_dataset')) {
+                elements.btnResetDataset.style.display = 'flex';
+            } else {
+                elements.btnResetDataset.style.display = 'none';
+            }
+        } catch (e) {
+            elements.btnResetDataset.style.display = 'none';
+        }
+    }
+
     /* ==========================================================================
        INIT & SYSTEM SETUP
        ========================================================================== */
     function init() {
         // Initialize Theme from localStorage or default
         initTheme();
+        
+        // Show or hide reset data button depending on custom dataset existence
+        updateResetButtonVisibility();
         
         // Initial Stats Calculation
         calculateStats(mainDataset);
@@ -128,6 +144,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Set up event listeners
         bindEvents();
+        
+        // Focus the search input field with a slight delay to allow IME layout to initialize properly on Windows
+        if (elements.globalSearch) {
+            elements.globalSearch.style.imeMode = 'active'; // Programmatic IME activation hint
+            setTimeout(() => {
+                elements.globalSearch.focus();
+            }, 300);
+        }
     }
 
     /* ==========================================================================
@@ -866,14 +890,15 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast(`${tempImportData.length}건의 새로운 데이터를 추가 병합했습니다.`);
         }
         
-        // Save to localStorage for data persistence across page reloads/closes
+        // Save to localStorage
         try {
-            localStorage.setItem('pingpong_excel_data', JSON.stringify(mainDataset));
-        } catch (err) {
-            console.error('Failed to save dataset to localStorage:', err);
-            showToast('로컬 저장소 공간이 부족하여 실시간 저장에 실패했습니다.');
+            localStorage.setItem('excel_dataset', JSON.stringify(mainDataset));
+            updateResetButtonVisibility();
+        } catch (e) {
+            console.error('Failed to save to localStorage:', e);
+            showToast('데이터 저장 중 오류가 발생했습니다. 브라우저 용량 초과일 수 있습니다.');
         }
-        
+
         // Refresh Stats Dashboard
         calculateStats(mainDataset);
         
@@ -891,6 +916,39 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Close modal
         closeUploadModal();
+    }
+
+    /* ==========================================================================
+       RESET DATASET TO DEFAULT (Revert back from custom Excel)
+       ========================================================================== */
+    function resetDataset() {
+        if (confirm('업로드한 데이터를 삭제하고 기본 데이터로 복원하시겠습니까?')) {
+            try {
+                localStorage.removeItem('excel_dataset');
+                mainDataset = window.EXCEL_DATA || [];
+                updateResetButtonVisibility();
+                
+                // Refresh Stats Dashboard
+                calculateStats(mainDataset);
+                
+                // Refresh Dropdown filter Options
+                populateFilters(mainDataset);
+                
+                // Reset Search
+                state.searchTerm = '';
+                elements.globalSearch.value = '';
+                elements.searchClearBtn.style.display = 'none';
+                state.currentPage = 1;
+                
+                // Re-render
+                filterAndRender();
+                
+                showToast('기본 데이터로 정상적으로 복원되었습니다.');
+            } catch (err) {
+                console.error('Failed to reset dataset:', err);
+                showToast('데이터 초기화 중 오류가 발생했습니다.');
+            }
+        }
     }
 
     /* ==========================================================================
@@ -932,15 +990,202 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
+       REAL-TIME HANGUL AUTOMATON (English-to-Korean Layout Assembler)
+       ========================================================================== */
+    function realtimeTranslateToKorean(str) {
+        const HANGUL_START = 0xAC00;
+        const HANGUL_END = 0xD7A3;
+
+        const CHO_LIST = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+        const JUNG_LIST = ['ㅏ', 'ㅐ', '랴', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ']; 
+        // Swap '랴' to 'ㅑ' for precise mapping
+        JUNG_LIST[2] = 'ㅑ';
+        const JONG_LIST = ['', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
+
+        const KOR_KEY = {
+            'a':'ㅁ', 'b':'ㅠ', 'c':'ㅊ', 'd':'ㅇ', 'e':'ㄷ', 'f':'ㄹ', 'g':'ㅎ', 'h':'ㅗ', 'i':'ㅑ', 'j':'ㅓ', 'k':'ㅏ', 'l':'ㅣ', 'm':'ㅡ', 'n':'ㅜ', 'o':'ㅐ', 'p':'ㅔ', 'q':'ㅂ', 'r':'ㄱ', 's':'ㄴ', 't':'ㅅ', 'u':'ㅕ', 'v':'ㅍ', 'w':'ㅈ', 'x':'ㅌ', 'y':'ㅛ', 'z':'ㅋ',
+            'A':'ㅁ', 'B':'ㅠ', 'C':'ㅊ', 'D':'ㅇ', 'E':'ㄸ', 'F':'ㄹ', 'G':'ㅎ', 'H':'ㅗ', 'I':'ㅑ', 'J':'ㅓ', 'K':'ㅏ', 'L':'ㅣ', 'M':'ㅡ', 'N':'ㅜ', 'O':'ㅒ', 'P':'ㅖ', 'Q':'ㅃ', 'R':'ㄲ', 'S':'ㄴ', 'T':'ㅆ', 'U':'ㅕ', 'V':'ㅍ', 'W':'ㅉ', 'X':'ㅌ', 'Y':'ㅛ', 'Z':'ㅋ'
+        };
+
+        const DECOMPOSE_VOWELS = {
+            'ㅘ': ['ㅗ', 'ㅏ'], 'ㅙ': ['ㅗ', 'ㅐ'], 'ㅚ': ['ㅗ', 'ㅣ'],
+            'ㅝ': ['ㅜ', 'ㅓ'], 'ㅞ': ['ㅜ', 'ㅔ'], 'ㅟ': ['ㅜ', 'ㅣ'],
+            'ㅢ': ['ㅡ', 'ㅣ']
+        };
+        const DECOMPOSE_JONGS = {
+            'ㄳ': ['ㄱ', 'ㅅ'], 'ㄵ': ['ㄴ', 'ㅈ'], 'ㄶ': ['ㄴ', 'ㅎ'],
+            'ㄺ': ['ㄹ', 'ㄱ'], 'ㄻ': ['ㄹ', 'ㅁ'], 'ㄼ': ['ㄹ', 'ㅂ'],
+            'ㄽ': ['ㄹ', 'ㅅ'], 'ㄾ': ['ㄹ', 'ㅌ'], 'ㄿ': ['ㄹ', 'ㅍ'],
+            'ㅀ': ['ㄹ', 'ㅎ'], 'ㅄ': ['ㅂ', 'ㅅ']
+        };
+
+        const DOUBLE_VOWELS = {
+            'ㅗㅏ': 'ㅘ', 'ㅗㅐ': 'ㅙ', 'ㅗㅣ': 'ㅚ', 'ㅜㅓ': 'ㅝ', 'ㅜㅔ': 'ㅞ', 'ㅜㅣ': 'ㅟ', 'ㅡㅣ': 'ㅢ'
+        };
+        const DOUBLE_JONGS = {
+            'ㄱㅅ': 'ㄳ', 'ㄴㅈ': 'ㄵ', 'ㄴㅎ': 'ㄶ', 'ㄹㄱ': 'ㄺ', 'ㄹㅁ': 'ㄻ', 'ㄹㅂ': 'ㄼ', 'ㄹㅅ': 'ㄽ', 'ㄹㅌ': 'ㄾ', 'ㄹㅍ': 'ㄿ', 'ㄹㅎ': 'ㅀ', 'ㅂㅅ': 'ㅄ'
+        };
+        const DECOMPOSE_DOUBLE_JONGS = {
+            'ㄳ': ['ㄱ', 'ㅅ'], 'ㄵ': ['ㄴ', 'ㅈ'], 'ㄶ': ['ㄴ', 'ㅎ'], 'ㄺ': ['ㄹ', 'ㄱ'], 'ㄻ': ['ㄹ', 'ㅁ'], 'ㄼ': ['ㄹ', 'ㅂ'], 'ㄽ': ['ㄹ', 'ㅅ'], 'ㄾ': ['ㄹ', 'ㅌ'], 'ㄿ': ['ㄹ', 'ㅍ'], 'ㅀ': ['ㄹ', 'ㅎ'], 'ㅄ': ['ㅂ', 'ㅅ']
+        };
+
+        let jamos = [];
+        for (let i = 0; i < str.length; i++) {
+            const char = str[i];
+            const code = char.charCodeAt(0);
+            
+            if (code >= HANGUL_START && code <= HANGUL_END) {
+                const index = code - HANGUL_START;
+                const choIdx = Math.floor(index / 588);
+                const jungIdx = Math.floor((index % 588) / 28);
+                const jongIdx = index % 28;
+                
+                jamos.push(CHO_LIST[choIdx]);
+                
+                const jung = JUNG_LIST[jungIdx];
+                if (DECOMPOSE_VOWELS[jung]) {
+                    jamos.push(...DECOMPOSE_VOWELS[jung]);
+                } else {
+                    jamos.push(jung);
+                }
+                
+                const jong = JONG_LIST[jongIdx];
+                if (jong) {
+                    if (DECOMPOSE_JONGS[jong]) {
+                        jamos.push(...DECOMPOSE_JONGS[jong]);
+                    } else {
+                        jamos.push(jong);
+                    }
+                }
+            } else if (KOR_KEY[char]) {
+                const korJamo = KOR_KEY[char];
+                if (DECOMPOSE_VOWELS[korJamo]) {
+                    jamos.push(...DECOMPOSE_VOWELS[korJamo]);
+                } else if (DECOMPOSE_JONGS[korJamo]) {
+                    jamos.push(...DECOMPOSE_JONGS[korJamo]);
+                } else {
+                    jamos.push(korJamo);
+                }
+            } else {
+                jamos.push(char);
+            }
+        }
+
+        let result = '';
+        let cho = '';
+        let jung = '';
+        let jong = '';
+
+        function buildSyllable() {
+            if (cho && jung) {
+                const choIdx = CHO_LIST.indexOf(cho);
+                const jungIdx = JUNG_LIST.indexOf(jung);
+                const jongIdx = JONG_LIST.indexOf(jong);
+                return String.fromCharCode((choIdx * 21 + jungIdx) * 28 + jongIdx + 0xAC00);
+            }
+            return cho + jung + jong;
+        }
+
+        function flushSyllable() {
+            result += buildSyllable();
+            cho = '';
+            jung = '';
+            jong = '';
+        }
+
+        for (let i = 0; i < jamos.length; i++) {
+            const korChar = jamos[i];
+            const isConsonant = CHO_LIST.includes(korChar);
+            const isVowel = JUNG_LIST.includes(korChar);
+
+            if (!cho) {
+                if (isConsonant) {
+                    cho = korChar;
+                } else {
+                    result += korChar;
+                }
+            } else if (cho && !jung) {
+                if (isVowel) {
+                    jung = korChar;
+                } else {
+                    flushSyllable();
+                    cho = korChar;
+                }
+            } else if (cho && jung && !jong) {
+                if (isVowel) {
+                    const combinedVowel = DOUBLE_VOWELS[jung + korChar];
+                    if (combinedVowel) {
+                        jung = combinedVowel;
+                    } else {
+                        flushSyllable();
+                        result += korChar;
+                    }
+                } else {
+                    if (JONG_LIST.includes(korChar)) {
+                        jong = korChar;
+                    } else {
+                        flushSyllable();
+                        cho = korChar;
+                    }
+                }
+            } else if (cho && jung && jong) {
+                if (isVowel) {
+                    const decomposedJong = DECOMPOSE_DOUBLE_JONGS[jong];
+                    if (decomposedJong) {
+                        const firstPart = decomposedJong[0];
+                        const secondPart = decomposedJong[1];
+                        jong = firstPart;
+                        flushSyllable();
+                        cho = secondPart;
+                        jung = korChar;
+                    } else {
+                        const prevJong = jong;
+                        jong = '';
+                        flushSyllable();
+                        cho = prevJong;
+                        jung = korChar;
+                    }
+                } else {
+                    const combinedJong = DOUBLE_JONGS[jong + korChar];
+                    if (combinedJong) {
+                        jong = combinedJong;
+                    } else {
+                        flushSyllable();
+                        cho = korChar;
+                    }
+                }
+            }
+        }
+
+        flushSyllable();
+        return result;
+    }
+
+    /* ==========================================================================
        BINDING REGISTER EVENTS
        ========================================================================== */
     function bindEvents() {
         // Theme Toggle Click
         elements.themeToggleBtn.addEventListener('click', toggleTheme);
         
-        // Real-time Unified Text Search Input
+        // Real-time Unified Text Search Input with Korean Layout Automaton
         elements.globalSearch.addEventListener('input', (e) => {
-            state.searchTerm = e.target.value;
+            const inputEl = e.target;
+            const start = inputEl.selectionStart;
+            const end = inputEl.selectionEnd;
+            const originalVal = inputEl.value;
+            const convertedVal = realtimeTranslateToKorean(originalVal);
+            
+            if (originalVal !== convertedVal) {
+                inputEl.value = convertedVal;
+                const originalLength = originalVal.length;
+                const convertedLength = convertedVal.length;
+                const diff = originalLength - convertedLength;
+                const newCursorPos = Math.max(0, start - diff);
+                inputEl.setSelectionRange(newCursorPos, newCursorPos);
+            }
+
+            state.searchTerm = inputEl.value;
             
             // Toggle clear button display
             if (state.searchTerm) {
@@ -1047,19 +1292,6 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.uploadModalClose.addEventListener('click', closeUploadModal);
         elements.btnCancelImport.addEventListener('click', closeUploadModal);
         
-        // Reset to original built-in dataset
-        if (elements.btnResetOriginal) {
-            elements.btnResetOriginal.addEventListener('click', () => {
-                if (confirm('업로드한 데이터를 모두 삭제하고 초기 데이터셋으로 복구하시겠습니까?')) {
-                    localStorage.removeItem('pingpong_excel_data');
-                    showToast('데이터가 초기화되었습니다. 기본 데이터로 다시 로딩합니다.');
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
-                }
-            });
-        }
-        
         elements.uploadModal.addEventListener('click', (e) => {
             if (e.target === elements.uploadModal) {
                 closeUploadModal();
@@ -1104,6 +1336,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Export Current Filtered Results Click
         elements.btnExportExcel.addEventListener('click', exportFilteredToExcel);
+        
+        // Reset Dataset Click
+        if (elements.btnResetDataset) {
+            elements.btnResetDataset.addEventListener('click', resetDataset);
+        }
 
         // Search Rankings carousel control events
         elements.btnResetRanks.addEventListener('click', resetRanks);
