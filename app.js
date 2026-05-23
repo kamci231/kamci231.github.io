@@ -144,9 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show or hide reset data button depending on custom dataset existence
         updateResetButtonVisibility();
 
-        // Hide upload button on public web deployment (Employee Viewer Mode)
-        if (!isLocal && elements.btnUploadTrigger) {
-            elements.btnUploadTrigger.style.display = 'none';
+        // Hide upload and export buttons on public web deployment (Employee Viewer Mode)
+        if (!isLocal) {
+            if (elements.btnUploadTrigger) elements.btnUploadTrigger.style.display = 'none';
+            if (elements.btnExportExcel) elements.btnExportExcel.style.display = 'none';
         }
         
         // Initial Stats Calculation
