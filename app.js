@@ -3,17 +3,27 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Determine if running locally (Master Admin Mode) or on the web (Employee Viewer Mode)
+    const isLocal = window.location.hostname === 'localhost' || 
+                    window.location.hostname === '127.0.0.1' || 
+                    window.location.protocol === 'file:';
+
     // 1. Core State
     let mainDataset = [];
-    try {
-        const savedData = localStorage.getItem('excel_dataset');
-        if (savedData) {
-            mainDataset = JSON.parse(savedData);
-        } else {
+    if (isLocal) {
+        try {
+            const savedData = localStorage.getItem('excel_dataset');
+            if (savedData) {
+                mainDataset = JSON.parse(savedData);
+            } else {
+                mainDataset = window.EXCEL_DATA || [];
+            }
+        } catch (e) {
+            console.error('Failed to load dataset from localStorage:', e);
             mainDataset = window.EXCEL_DATA || [];
         }
-    } catch (e) {
-        console.error('Failed to load dataset from localStorage:', e);
+    } else {
+        // On the web, employees always read the official master data from data.js
         mainDataset = window.EXCEL_DATA || [];
     }
     let filteredDataset = [];
@@ -109,6 +119,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateResetButtonVisibility() {
         if (!elements.btnResetDataset) return;
+        if (!isLocal) {
+            elements.btnResetDataset.style.display = 'none';
+            return;
+        }
         try {
             if (localStorage.getItem('excel_dataset')) {
                 elements.btnResetDataset.style.display = 'flex';
@@ -129,6 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Show or hide reset data button depending on custom dataset existence
         updateResetButtonVisibility();
+
+        // Hide upload button on public web deployment (Employee Viewer Mode)
+        if (!isLocal && elements.btnUploadTrigger) {
+            elements.btnUploadTrigger.style.display = 'none';
+        }
         
         // Initial Stats Calculation
         calculateStats(mainDataset);
