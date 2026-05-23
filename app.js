@@ -3,8 +3,19 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Core State
-    let mainDataset = window.EXCEL_DATA || [];
+    // 1. Core State (Load persistent data from localStorage if exists, otherwise fallback to default Excel)
+    let mainDataset = [];
+    try {
+        const savedData = localStorage.getItem('pingpong_excel_data');
+        if (savedData) {
+            mainDataset = JSON.parse(savedData);
+        } else {
+            mainDataset = window.EXCEL_DATA || [];
+        }
+    } catch (err) {
+        console.error('Failed to load saved dataset from localStorage:', err);
+        mainDataset = window.EXCEL_DATA || [];
+    }
     let filteredDataset = [];
     let currentTheme = 'dark';
     
@@ -76,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         previewTableBody: document.getElementById('preview-table-body'),
         btnCancelImport: document.getElementById('btn-cancel-import'),
         btnConfirmImport: document.getElementById('btn-confirm-import'),
+        btnResetOriginal: document.getElementById('btn-reset-original'),
         
         // Toast
         toastContainer: document.getElementById('toast-container'),
@@ -854,6 +866,14 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast(`${tempImportData.length}건의 새로운 데이터를 추가 병합했습니다.`);
         }
         
+        // Save to localStorage for data persistence across page reloads/closes
+        try {
+            localStorage.setItem('pingpong_excel_data', JSON.stringify(mainDataset));
+        } catch (err) {
+            console.error('Failed to save dataset to localStorage:', err);
+            showToast('로컬 저장소 공간이 부족하여 실시간 저장에 실패했습니다.');
+        }
+        
         // Refresh Stats Dashboard
         calculateStats(mainDataset);
         
@@ -1026,6 +1046,19 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.btnUploadTrigger.addEventListener('click', openUploadModal);
         elements.uploadModalClose.addEventListener('click', closeUploadModal);
         elements.btnCancelImport.addEventListener('click', closeUploadModal);
+        
+        // Reset to original built-in dataset
+        if (elements.btnResetOriginal) {
+            elements.btnResetOriginal.addEventListener('click', () => {
+                if (confirm('업로드한 데이터를 모두 삭제하고 초기 데이터셋으로 복구하시겠습니까?')) {
+                    localStorage.removeItem('pingpong_excel_data');
+                    showToast('데이터가 초기화되었습니다. 기본 데이터로 다시 로딩합니다.');
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                }
+            });
+        }
         
         elements.uploadModal.addEventListener('click', (e) => {
             if (e.target === elements.uploadModal) {
