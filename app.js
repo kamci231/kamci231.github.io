@@ -147,7 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Focus the search input field with a slight delay to allow IME layout to initialize properly on Windows
         if (elements.globalSearch) {
-            elements.globalSearch.style.imeMode = 'active'; // Programmatic IME activation hint
             setTimeout(() => {
                 elements.globalSearch.focus();
             }, 300);
@@ -997,9 +996,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const HANGUL_END = 0xD7A3;
 
         const CHO_LIST = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
-        const JUNG_LIST = ['ㅏ', 'ㅐ', '랴', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ']; 
-        // Swap '랴' to 'ㅑ' for precise mapping
-        JUNG_LIST[2] = 'ㅑ';
+        const JUNG_LIST = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'];
         const JONG_LIST = ['', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
 
         const KOR_KEY = {
