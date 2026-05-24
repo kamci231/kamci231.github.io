@@ -94,11 +94,18 @@
 }
 
 /* --- 3. Base Elements Structure --- */
+html {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: var(--font-body);
     background-color: var(--bg-main);
     color: var(--text-primary);
     line-height: 1.6;
+    overflow-y: auto;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
@@ -108,22 +115,6 @@ body {
     display: flex;
     flex-direction: column;
     background-color: var(--bg-main);
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-::-webkit-scrollbar-track {
-    background: var(--scrollbar-track);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb);
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
 }
 
 /* --- 4. Header & Navigation --- */
