@@ -1184,9 +1184,22 @@ document.addEventListener('DOMContentLoaded', () => {
         // Theme Toggle Click
         elements.themeToggleBtn.addEventListener('click', toggleTheme);
         
+        // Prevent first input from being space key
+        elements.globalSearch.addEventListener('keydown', (e) => {
+            if (e.key === ' ' && e.target.value.length === 0) {
+                e.preventDefault();
+            }
+        });
+
         // Real-time Unified Text Search Input with Korean Layout Automaton
         elements.globalSearch.addEventListener('input', (e) => {
             const inputEl = e.target;
+            
+            // Prevent first character from being a space (both typing and pasting)
+            if (inputEl.value.startsWith(' ')) {
+                inputEl.value = inputEl.value.trimStart();
+            }
+
             const start = inputEl.selectionStart;
             const end = inputEl.selectionEnd;
             const originalVal = inputEl.value;
