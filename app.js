@@ -104,7 +104,27 @@ document.addEventListener('DOMContentLoaded', () => {
         btnResetRanks: document.getElementById('btn-reset-ranks'),
         btnPrevRank: document.getElementById('btn-prev-rank'),
         btnNextRank: document.getElementById('btn-next-rank'),
-        rankPageIndicator: document.getElementById('rank-page-indicator')
+        rankPageIndicator: document.getElementById('rank-page-indicator'),
+
+        // Database Integration Status Pill
+        dbStatusPill: document.getElementById('db-status-pill'),
+        dbStatusDot: document.getElementById('db-status-dot'),
+        dbStatusText: document.getElementById('db-status-text'),
+
+        // Database Configuration Modal
+        dbConfigModal: document.getElementById('db-config-modal'),
+        dbConfigModalClose: document.getElementById('db-config-modal-close'),
+        dbTypeSelect: document.getElementById('db-type-select'),
+        configSupabaseFields: document.getElementById('config-supabase-fields'),
+        dbSupabaseUrl: document.getElementById('db-supabase-url'),
+        dbSupabaseKey: document.getElementById('db-supabase-key'),
+        configFirebaseFields: document.getElementById('config-firebase-fields'),
+        dbFirebaseUrl: document.getElementById('db-firebase-url'),
+        dbTestStatusArea: document.getElementById('db-test-status-area'),
+        dbTestSpinner: document.getElementById('db-test-spinner'),
+        dbTestMessage: document.getElementById('db-test-message'),
+        btnDbTest: document.getElementById('btn-db-test'),
+        btnDbSave: document.getElementById('btn-db-save')
     };
 
     // Temporary parsed upload storage
@@ -138,6 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Initialize Theme from localStorage or default
         initTheme();
         
+        // Initialize Database integration
+        initDatabase();
+
         // Show or hide reset data button depending on custom dataset existence
         updateResetButtonVisibility();
 
@@ -171,9 +194,164 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
+       DATABASE INTEGRATION ENGINE (Supabase / Firebase Client Setup)
+       ========================================================================== */
+    async function initDatabase() {
+        if (!window.DB) return;
+        
+        // Show status as testing first
+        updateDbStatusUI('testing', '연결 확인 중');
+
+        const connected = await window.DB.init();
+        if (connected) {
+            updateDbStatusUI('online', window.DB.getDbType());
+        } else {
+            updateDbStatusUI('offline', window.DB.getDbType() + ' (로컬)');
+        }
+
+        // Re-render popular rankings using DB if connected
+        renderSearchRanks();
+    }
+
+    function updateDbStatusUI(state, text) {
+        if (!elements.dbStatusDot || !elements.dbStatusText) return;
+        
+        elements.dbStatusDot.className = 'db-status-dot';
+        elements.dbStatusDot.classList.add(state);
+        
+        elements.dbStatusText.textContent = text;
+        
+        if (elements.dbStatusPill) {
+            if (state === 'online') {
+                elements.dbStatusPill.title = `클라우드 DB 연동 완료 (${text}) - 클릭 시 설정`;
+            } else if (state === 'testing') {
+                elements.dbStatusPill.title = 'DB 연결성 검사 진행 중...';
+            } else {
+                elements.dbStatusPill.title = `로컬 단독 모드 (${text}) - 클릭 시 클라우드 DB 연동 설정`;
+            }
+        }
+    }
+
+    /* ==========================================================================
+       DATABASE CONFIGURATION MODAL HANDLERS
+       ========================================================================== */
+    function openDbConfigModal() {
+        if (!window.DB) return;
+        
+        // Hide status message
+        if (elements.dbTestStatusArea) elements.dbTestStatusArea.style.display = 'none';
+        
+        // Load active configuration into fields
+        const config = window.DB.getConfig();
+        elements.dbTypeSelect.value = config.type || 'local';
+        
+        elements.dbSupabaseUrl.value = config.supabaseUrl || '';
+        elements.dbSupabaseKey.value = config.supabaseKey || '';
+        elements.dbFirebaseUrl.value = config.firebaseDbUrl || '';
+        
+        toggleDbConfigFields();
+        
+        elements.dbConfigModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDbConfigModal() {
+        elements.dbConfigModal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    function toggleDbConfigFields() {
+        const type = elements.dbTypeSelect.value;
+        
+        if (type === 'supabase') {
+            elements.configSupabaseFields.style.display = 'flex';
+            elements.configFirebaseFields.style.display = 'none';
+        } else if (type === 'firebase') {
+            elements.configSupabaseFields.style.display = 'none';
+            elements.configFirebaseFields.style.display = 'flex';
+        } else {
+            elements.configSupabaseFields.style.display = 'none';
+            elements.configFirebaseFields.style.display = 'none';
+        }
+    }
+
+    async function testDbConnection() {
+        const config = getFormDbConfig();
+        
+        if (config.type === 'local') {
+            showDbTestStatus('success', '로컬 스토리지 모드는 별도의 연결이 필요 없으며 언제나 활성화되어 있습니다.');
+            return;
+        }
+        
+        showDbTestStatus('testing', '데이터베이스 연결 확인 중...');
+        
+        try {
+            await window.DB.testConnection(config);
+            showDbTestStatus('success', `성공! ${config.type === 'supabase' ? 'Supabase' : 'Firebase'} 데이터베이스와 정상적으로 통신할 수 있습니다.`);
+        } catch (err) {
+            showDbTestStatus('error', `연결 실패: ${err.message}`);
+        }
+    }
+
+    async function saveDbConnection() {
+        const config = getFormDbConfig();
+        
+        showDbTestStatus('testing', '설정 적용 및 테스트 중...');
+        
+        try {
+            if (config.type !== 'local') {
+                await window.DB.testConnection(config);
+            }
+            
+            // Save to DB manager
+            window.DB.updateConfig(config);
+            
+            // Update UI status pill
+            if (config.type === 'local') {
+                updateDbStatusUI('offline', '로컬 모드');
+                showToast('로컬 모드로 전환되었습니다.');
+            } else {
+                updateDbStatusUI('online', window.DB.getDbType());
+                showToast(`성공적으로 ${window.DB.getDbType()}와 연동되었습니다!`);
+            }
+            
+            // Re-render rankings using new config
+            renderSearchRanks();
+            closeDbConfigModal();
+        } catch (err) {
+            showDbTestStatus('error', `저장 불가 (테스트 실패): ${err.message}`);
+            showToast('연동 테스트가 통과되지 않아 설정을 저장하지 못했습니다.');
+        }
+    }
+
+    function getFormDbConfig() {
+        return {
+            type: elements.dbTypeSelect.value,
+            supabaseUrl: elements.dbSupabaseUrl.value.trim(),
+            supabaseKey: elements.dbSupabaseKey.value.trim(),
+            firebaseDbUrl: elements.dbFirebaseUrl.value.trim()
+        };
+    }
+
+    function showDbTestStatus(state, msg) {
+        if (!elements.dbTestStatusArea || !elements.dbTestMessage || !elements.dbTestSpinner) return;
+        
+        elements.dbTestStatusArea.className = `db-test-status ${state}`;
+        elements.dbTestMessage.textContent = msg;
+        
+        if (state === 'testing') {
+            elements.dbTestSpinner.style.display = 'inline-block';
+        } else {
+            elements.dbTestSpinner.style.display = 'none';
+        }
+        
+        elements.dbTestStatusArea.style.display = 'flex';
+    }
+
+    /* ==========================================================================
        SEARCH RANKINGS MANAGEMENT (Top 30 popular keywords with carousel)
        ========================================================================== */
-    function recordSearchKeyword(keyword) {
+    async function recordSearchKeyword(keyword) {
         if (!keyword) return;
         
         // Standardize keyword (lowercase, trim)
@@ -184,42 +362,51 @@ document.addEventListener('DOMContentLoaded', () => {
         if (/^\d+$/.test(cleanKeyword)) return;
 
         try {
-            const ranks = JSON.parse(localStorage.getItem('search_ranks') || '{}');
-            // Preserve the original casing of the first search
-            const existingKeys = Object.keys(ranks);
-            const matchingKey = existingKeys.find(k => k.toLowerCase() === cleanKeyword);
-            
-            if (matchingKey) {
-                ranks[matchingKey] = (ranks[matchingKey] || 0) + 1;
+            if (window.DB && window.DB.isConfigured()) {
+                await window.DB.recordSearch(keyword.trim());
+            } else if (window.DB) {
+                window.DB.recordLocalSearch(keyword.trim());
             } else {
-                ranks[keyword.trim()] = 1;
+                const ranks = JSON.parse(localStorage.getItem('search_ranks') || '{}');
+                const existingKeys = Object.keys(ranks);
+                const matchingKey = existingKeys.find(k => k.toLowerCase() === cleanKeyword);
+                
+                if (matchingKey) {
+                    ranks[matchingKey] = (ranks[matchingKey] || 0) + 1;
+                } else {
+                    ranks[keyword.trim()] = 1;
+                }
+                localStorage.setItem('search_ranks', JSON.stringify(ranks));
             }
-            
-            localStorage.setItem('search_ranks', JSON.stringify(ranks));
             renderSearchRanks();
         } catch (err) {
             console.error('Failed to save search ranking:', err);
         }
     }
 
-    function renderSearchRanks() {
+    async function renderSearchRanks() {
         if (!elements.rankingTrack) return;
         
         elements.rankingTrack.innerHTML = '';
         
         try {
-            const ranks = JSON.parse(localStorage.getItem('search_ranks') || '{}');
-            const rankArray = Object.keys(ranks).map(key => {
-                return { keyword: key, count: ranks[key] };
-            });
-            
-            // Sort by count descending, then alphabetically
-            rankArray.sort((a, b) => {
-                if (b.count !== a.count) {
-                    return b.count - a.count;
-                }
-                return a.keyword.localeCompare(b.keyword);
-            });
+            let rankArray = [];
+            if (window.DB) {
+                rankArray = await window.DB.getPopularKeywords();
+            } else {
+                const ranks = JSON.parse(localStorage.getItem('search_ranks') || '{}');
+                rankArray = Object.keys(ranks).map(key => {
+                    return { keyword: key, count: ranks[key] };
+                });
+                
+                // Sort by count descending, then alphabetically
+                rankArray.sort((a, b) => {
+                    if (b.count !== a.count) {
+                        return b.count - a.count;
+                    }
+                    return a.keyword.localeCompare(b.keyword);
+                });
+            }
             
             // Take Top 30 items
             const top30 = rankArray.slice(0, 30);
@@ -284,8 +471,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             // Calculate carousel paging
-            // On desktop we show 5 per screen, on mobile it wraps (but track shifts 100% of viewport width)
-            // Flexbasis is 20% on desktop (5 items) and 50% on mobile (2 items)
             const isMobile = window.innerWidth <= 768;
             const itemsPerPage = isMobile ? 2 : 5;
             
@@ -314,7 +499,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function resetRanks() {
-        if (confirm('전체 검색어 순위 기록을 초기화하시겠습니까?')) {
+        let msg = '전체 검색어 순위 기록을 초기화하시겠습니까?';
+        if (window.DB && window.DB.isConfigured()) {
+            msg = '로컬 검색어 순위 기록을 초기화하시겠습니까?\n(주의: 클라우드 DB의 원본 데이터는 보존되며, 새로고침 시 다시 동기화됩니다.)';
+        }
+        if (confirm(msg)) {
             localStorage.removeItem('search_ranks');
             rankCarouselPage = 0;
             renderSearchRanks();
@@ -1405,6 +1594,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateRankCarouselNav();
             }
         });
+
+        // --- Database Config Modal Events ---
+        if (elements.dbStatusPill) {
+            elements.dbStatusPill.addEventListener('click', openDbConfigModal);
+        }
+        if (elements.dbConfigModalClose) {
+            elements.dbConfigModalClose.addEventListener('click', closeDbConfigModal);
+        }
+        if (elements.dbConfigModal) {
+            elements.dbConfigModal.addEventListener('click', (e) => {
+                if (e.target === elements.dbConfigModal) {
+                    closeDbConfigModal();
+                }
+            });
+        }
+        if (elements.dbTypeSelect) {
+            elements.dbTypeSelect.addEventListener('change', toggleDbConfigFields);
+        }
+        if (elements.btnDbTest) {
+            elements.btnDbTest.addEventListener('click', testDbConnection);
+        }
+        if (elements.btnDbSave) {
+            elements.btnDbSave.addEventListener('click', saveDbConnection);
+        }
 
         // Recalculate ranks carousel paging on browser window resizing
         window.addEventListener('resize', () => {
