@@ -45,13 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggleBtn: document.getElementById('theme-toggle-btn'),
         
         // Stats Widgets
-        statDepts: document.getElementById('stat-depts'),
-        statTeams: document.getElementById('stat-teams'),
-        statTasks: document.getElementById('stat-tasks'),
-        statPhones: document.getElementById('stat-phones'),
         quickCount: document.getElementById('quick-count'),
         
         // Search & Filters
+        searchForm: document.getElementById('search-form'),
         globalSearch: document.getElementById('global-search-input'),
         searchClearBtn: document.getElementById('search-clear-btn'),
         filterDeptSelect: document.getElementById('filter-dept'),
@@ -362,23 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
        STATISTICS & BADGES CALCULATION
        ========================================================================== */
     function calculateStats(dataset) {
-        const uniqueDepts = new Set();
-        const uniqueTeams = new Set();
-        let totalDuties = 0;
-        const uniquePhones = new Set();
-        
-        dataset.forEach(item => {
-            if (item.department) uniqueDepts.add(item.department);
-            if (item.team) uniqueTeams.add(item.team);
-            if (item.duty) totalDuties++;
-            if (item.phone) uniquePhones.add(item.phone);
-        });
-        
-        elements.statDepts.textContent = uniqueDepts.size.toLocaleString();
-        elements.statTeams.textContent = uniqueTeams.size.toLocaleString();
-        elements.statTasks.textContent = totalDuties.toLocaleString();
-        elements.statPhones.textContent = uniquePhones.size.toLocaleString();
-        
         elements.quickCount.textContent = `총 ${dataset.length}개 업무 구성`;
     }
 
@@ -1234,16 +1214,34 @@ document.addEventListener('DOMContentLoaded', () => {
             filterAndRender();
         });
 
-        // Record search history when hitting Enter key
-        elements.globalSearch.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const keyword = e.target.value.trim();
-                if (keyword) {
-                    recordSearchKeyword(keyword);
-                    showToast(`"${keyword}" 검색 기록이 인기 검색어에 반영되었습니다.`);
+        // Handle Search Form Submission (Submit Button Click, Enter Key, Mobile Keyboard Search Button)
+        if (elements.searchForm) {
+            elements.searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const keyword = elements.globalSearch.value.trim();
+                if (!keyword) {
+                    showToast('검색어를 입력해 주세요.');
+                    elements.globalSearch.focus();
+                    return;
                 }
-            }
-        });
+                
+                // Set search term and reset page
+                state.searchTerm = keyword;
+                state.currentPage = 1;
+                filterAndRender();
+                
+                // Record search history
+                recordSearchKeyword(keyword);
+                
+                // Show result feedback
+                if (filteredDataset.length === 0) {
+                    showToast(`"${keyword}"에 대한 검색 결과가 없습니다.`);
+                } else {
+                    showToast(`"${keyword}"(으)로 ${filteredDataset.length}건이 검색되었습니다.`);
+                }
+            });
+        }
         
         // Search clear click
         elements.searchClearBtn.addEventListener('click', () => {

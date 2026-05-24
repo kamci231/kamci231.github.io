@@ -394,7 +394,7 @@ body {
 
 #global-search-input {
     width: 100%;
-    padding: 1.15rem 3.5rem 1.15rem 3.5rem;
+    padding: 1.15rem 9.5rem 1.15rem 3.5rem;
     background-color: var(--bg-input);
     border: 1px solid var(--border-color);
     border-radius: 14px;
@@ -418,7 +418,7 @@ body {
 
 #search-clear-btn {
     position: absolute;
-    right: 1.25rem;
+    right: 6.8rem;
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -429,6 +429,7 @@ body {
     border-radius: 50%;
     display: flex;
     align-items: center;
+    z-index: 10;
 }
 
 #search-clear-btn:hover {
@@ -440,6 +441,40 @@ body {
     width: 18px;
     height: 18px;
 }
+
+/* Premium Search Button inside input */
+.search-btn {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, var(--accent-teal), var(--accent-indigo));
+    color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+    padding: 0 1.25rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    box-shadow: 0 4px 12px var(--accent-teal-glow);
+    height: calc(100% - 1.2rem);
+    z-index: 10;
+}
+
+.search-btn:hover {
+    transform: translateY(-50%) scale(1.02);
+    box-shadow: 0 4px 15px rgba(20, 184, 166, 0.35);
+}
+
+.search-btn:active {
+    transform: translateY(-50%) scale(0.98);
+}
+
 
 /* Filters Row */
 .filter-controls-row {
