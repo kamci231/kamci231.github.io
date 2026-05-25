@@ -1303,6 +1303,12 @@ body {
     to { transform: translateX(0) translateY(0); opacity: 1; }
 }
 
+@keyframes slideDownMobile {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
 .toast-item.fade-out {
     animation: fadeOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -1448,6 +1454,26 @@ body {
         content: '업무 상세 보기';
         font-size: 0.85rem;
         font-weight: 600;
+    }
+
+    /* Toast Banner Mobile Responsive Adjustments (Position at top of screen to prevent keyboard occlusion) */
+    .toast-wrapper {
+        bottom: auto;
+        top: 1.5rem;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        align-items: center;
+        width: calc(100% - 2rem);
+        max-width: 450px;
+    }
+    
+    .toast-item {
+        animation: slideDownMobile 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
     }
 }
 
@@ -1685,259 +1711,5 @@ body {
         width: 100%;
         justify-content: space-between;
     }
-}
-
-/* ==========================================================================
-   17. CLOUD DATABASE INTEGRATION STYLES (Supabase / Firebase)
-   ========================================================================== */
-
-/* DB Stats Pill in Header */
-.db-stats-pill {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 0.4rem 1rem;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    cursor: pointer;
-    user-select: none;
-}
-
-.db-stats-pill:hover {
-    background-color: var(--bg-card-hover);
-    border-color: var(--accent-teal);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px var(--accent-teal-glow);
-}
-
-.db-status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    position: relative;
-    display: inline-block;
-}
-
-.db-status-dot.online {
-    background-color: #10B981; /* Premium emerald green */
-}
-
-.db-status-dot.online::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: 50%;
-    background-color: #10B981;
-    animation: dbPulseGreen 1.8s infinite;
-}
-
-.db-status-dot.offline {
-    background-color: #F59E0B; /* Warm orange */
-}
-
-.db-status-dot.testing {
-    background-color: var(--accent-blue);
-    animation: dbBlink 1s infinite alternate;
-}
-
-@keyframes dbPulseGreen {
-    0% { transform: scale(1); opacity: 0.8; }
-    100% { transform: scale(3.5); opacity: 0; }
-}
-
-@keyframes dbBlink {
-    0% { opacity: 0.3; }
-    100% { opacity: 1; }
-}
-
-/* DB Setup Modal & Card */
-.db-config-card {
-    max-width: 600px !important;
-}
-
-.db-config-intro {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-}
-
-.db-type-selector {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.db-type-selector label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.db-type-selector select {
-    width: 100%;
-    padding: 0.85rem 1rem;
-    background-color: var(--bg-input);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    color: var(--text-primary);
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    font-weight: 600;
-    outline: none;
-    cursor: pointer;
-}
-
-.db-type-selector select:focus {
-    border-color: var(--accent-teal);
-    box-shadow: 0 0 0 3px var(--accent-teal-glow);
-}
-
-.db-fields-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
-    animation: dbFieldFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes dbFieldFadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.setting-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-.setting-item label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.setting-item input {
-    width: 100%;
-    padding: 0.85rem 1.15rem;
-    background-color: var(--bg-input);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    color: var(--text-primary);
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    outline: none;
-}
-
-.setting-item input:focus {
-    border-color: var(--accent-teal);
-    box-shadow: 0 0 0 3px var(--accent-teal-glow);
-}
-
-/* Setup Guide Section */
-.db-setup-guide {
-    background-color: rgba(0, 0, 0, 0.15);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.25rem;
-    margin-top: 0.75rem;
-}
-
-.light-theme .db-setup-guide {
-    background-color: rgba(0, 0, 0, 0.02);
-}
-
-.db-setup-guide h5 {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-
-.db-setup-guide p {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.75rem;
-}
-
-.db-setup-guide pre {
-    background-color: rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    padding: 0.75rem;
-    overflow-x: auto;
-    max-height: 150px;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.light-theme .db-setup-guide pre {
-    background-color: rgba(0, 0, 0, 0.04);
-    border-color: rgba(0, 0, 0, 0.04);
-}
-
-.db-setup-guide code {
-    font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 0.75rem;
-    color: var(--accent-teal);
-}
-
-/* Connection Test Status display */
-.db-test-status {
-    padding: 1rem 1.25rem;
-    border-radius: 12px;
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    line-height: 1.4;
-    animation: dbFieldFadeIn 0.25s ease-out;
-}
-
-.db-test-status.success {
-    background-color: rgba(16, 185, 129, 0.15);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    color: #10B981;
-}
-
-.db-test-status.error {
-    background-color: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #EF4444;
-}
-
-.db-test-status.testing {
-    background-color: rgba(59, 130, 246, 0.15);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    color: #3B82F6;
-}
-
-/* Loading spinner */
-.test-spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid currentColor;
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    display: inline-block;
-    animation: dbSpinnerRotation 1s linear infinite;
-}
-
-@keyframes dbSpinnerRotation {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 }
 
