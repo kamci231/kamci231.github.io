@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제23회 청춘양구 곰취축제 - 로얄 곰취의 향연</title>
+    <meta name="description" content="2026년 5월, 강원특별자치도 양구군에서 펼쳐지는 '제23회 청춘양구 곰취축제'에 초대합니다! 신선한 곰취 삼겹살, 다채로운 체험 활동, 힐링 미니게임까지 풍성한 축제를 직접 즐겨보세요.">
+    
+    <!-- Open Graph SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="제23회 청춘양구 곰취축제 - 로얄 곰취의 향연">
+    <meta property="og:description" content="자연이 숨 쉬는 곳, 양구에서 열리는 신선한 로얄 곰취 축제! 삼겹살 쌈 파티, 다양한 공연, 가상 채취 미니게임까지 다양한 힐링 체험을 만나보세요.">
+    <meta property="og:image" content="images/gomchwi_hero.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS (Main site style + Gomchwi specific style) -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gomchwi.css">
+</head>
+<body class="gomchwi-page">
+    
+    <!-- Floating Leaves Particle Container -->
+    <div id="leaves-container"></div>
+
+    <!-- Header -->
+    <header id="header" class="gomchwi-header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌿</span>
+                <span class="logo-text">YANGGU GOMCHWI</span>
+            </a>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">홈으로</a></li>
+                    <li><a href="#intro">축제소개</a></li>
+                    <li><a href="#programs">축제일정</a></li>
+                    <li><a href="#game">채취게임</a></li>
+                    <li><a href="#gourmet">대표먹거리</a></li>
+                    <li><a href="#venue">오시는길</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <div class="lang-dropdown">
+                    <button class="lang-btn">🌐 KOR <span class="arrow">▼</span></button>
+                    <ul class="lang-list">
+                        <li><a href="#" class="active" data-lang="ko" data-name="KOR">KOR (한국어)</a></li>
+                        <li><a href="#" data-lang="en" data-name="ENG">ENG (English)</a></li>
+                        <li><a href="#" data-lang="zh-CN" data-name="中文">中文 (Chinese)</a></li>
+                        <li><a href="#" data-lang="ja" data-name="日本語">日本語 (Japanese)</a></li>
+                    </ul>
+                </div>
+                <div class="mobile-menu-btn" aria-label="메뉴 열기" role="button" tabindex="0">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gomchwi-hero" id="hero">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-content fade-in-up">
+            <span class="hero-subtitle">MAY 2 - MAY 5, 2026</span>
+            <h1 class="hero-title">제23회 청춘양구<br><strong>곰취축제</strong></h1>
+            <p class="hero-tagline">“자연이 준 선물, 로얄(Royal) 곰취의 깊은 향연속으로!”</p>
+            <div class="hero-buttons">
+                <a href="#game" class="btn-primary">🎮 곰취 게임 하기</a>
+                <a href="#programs" class="btn-secondary">📅 일정 보러가기</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span class="mouse">
+                <span class="wheel"></span>
+            </span>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="gomchwi-intro section-padding" id="intro">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="subtitle">ABOUT FESTIVAL</span>
+                <h2>청춘양구 곰취축제란?</h2>
+                <p>양구의 청정 자연 속에서 자라난 명품 곰취를 오감으로 경험하는 힐링 축제입니다.</p>
+            </div>
+            
+            <div class="intro-grid">
+                <div class="intro-card-large">
+                    <div class="intro-visual">
+                        <div class="glow-circle"></div>
+                        <span class="intro-leaf-icon">🌿</span>
+                    </div>
+                    <div class="intro-text">
+                        <h3>👑 왜 '로얄(Royal) 곰취' 일까요?</h3>
+                        <p>양구 곰취는 해발 고도가 높고 일교차가 큰 DMZ 인근의 깊은 산자락에서 깨끗한 공기와 맑은 물을 먹고 자라납니다. 이 덕분에 잎이 매우 부드럽고 특유의 은은하고 깊은 향이 나며, 비타민 C와 섬유질이 풍부하여 면역력 강화와 피로 회복에 탁월합니다. 양구군이 자부하는 최고의 명품 농산물, 그것이 바로 '로얄 곰취'입니다.</p>
+                    </div>
+                </div>
+
+                <div class="intro-info-cards">
+                    <div class="info-mini-card">
+                        <div class="mini-icon">📅</div>
+                        <div class="mini-content">
+                            <h4>축제 기간</h4>
+                            <p>2026. 5. 2(토) ~ 5. 5(화) [4일간]</p>
+                        </div>
+                    </div>
+                    <div class="info-mini-card">
+                        <div class="mini-icon">📍</div>
+                        <div class="mini-content">
+                            <h4>축제 장소</h4>
+                            <p>강원특별자치도 양구군 레포츠공원 일원</p>
+                        </div>
+                    </div>
+                    <div class="info-mini-card">
+                        <div class="mini-icon">💚</div>
+                        <div class="mini-content">
+                            <h4>주요 슬로건</h4>
+                            <p>자연의 품격, 양구 로얄 곰취의 귀환!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dynamic Programs Section -->
+    <section class="gomchwi-programs section-padding" id="programs">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="subtitle">FESTIVAL SCHEDULE</span>
+                <h2>행사 프로그램 일정</h2>
+                <p>다양한 연령층이 함께 즐길 수 있는 오감 만족 체험과 신나는 무대가 준비되어 있습니다.</p>
+            </div>
+
+            <!-- Program Tabs -->
+            <div class="program-tabs">
+                <button class="tab-btn active" data-tab="experience">🌿 체험 행사</button>
+                <button class="tab-btn" data-tab="performance">🎤 공연·이벤트</button>
+                <button class="tab-btn" data-tab="food-sales">🛒 먹거리·판매</button>
+            </div>
+
+            <!-- Tab Content: Experience -->
+            <div class="tab-content active" id="experience">
+                <div class="program-grid">
+                    <div class="program-card">
+                        <div class="prog-badge">체험</div>
+                        <div class="prog-content">
+                            <h3>🌱 곰취 현장 채취 체험</h3>
+                            <p class="prog-time">매일 10:00 - 16:00 (사전 신청 및 현장 접수)</p>
+                            <p class="prog-desc">전문가의 안내를 받으며 청정 밭에서 싱그럽고 은은한 향의 곰취를 직접 손으로 채취하고 한 팩 담아갈 수 있는 대표 힐링 프로그램입니다.</p>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="prog-badge">체험</div>
+                        <div class="prog-content">
+                            <h3>🔨 전통 곰취 떡메치기</h3>
+                            <p class="prog-time">매일 11:30, 14:30 (하루 2회)</p>
+                            <p class="prog-desc">남녀노소 다 함께 떡메를 내리치며 전통 방식으로 곰취 찰떡을 완성하고, 갓 지어 부드럽고 쫄깃한 고소한 떡을 현장에서 즉석 시식합니다.</p>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="prog-badge">키즈</div>
+                        <div class="prog-content">
+                            <h3>🧸 티니핑 팝업 놀이터 & 키즈 존</h3>
+                            <p class="prog-time">상설 운영 (09:30 - 18:00)</p>
+                            <p class="prog-desc">'캐치! 티니핑' 테마의 대형 팝업 놀이터와 대형 에어바운스, 이동식 동물원 등이 설치되어 아이들에게 잊지 못할 추억을 선물합니다.</p>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="prog-badge">체험</div>
+                        <div class="prog-content">
+                            <h3>🍕 곰취 쿠킹 클래스</h3>
+                            <p class="prog-time">매시간 정각 운영 (선착순 현장 접수)</p>
+                            <p class="prog-desc">향긋한 곰취 페스토를 곁들인 웰빙 피자와 천연 곰취 아이스크림을 직접 만들어 보며 아이들의 오감을 자극하는 요리 수업입니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Performance -->
+            <div class="tab-content" id="performance">
+                <div class="program-grid">
+                    <div class="program-card">
+                        <div class="prog-badge live">공연</div>
+                        <div class="prog-content">
+                            <h3>📻 MBC 라디오 특집 공개방송</h3>
+                            <p class="prog-time">5월 2일(토) 18:30 - 21:00</p>
+                            <p class="prog-desc">축제의 화려한 시작을 알리는 개막식과 유명 가수들이 총출동하는 특집 라이브 무대로 양구의 밤하늘을 뜨겁게 수놓습니다.</p>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="prog-badge">공연</div>
+                        <div class="prog-content">
+                            <h3>🎸 로얄 곰취 힐링 콘서트</h3>
+                            <p class="prog-time">5월 3일(일) 19:00 - 20:30</p>
+                            <p class="prog-desc">인기 인디 밴드와 어쿠스틱 뮤지션들이 선보이는 감성 버스킹과 퓨전 국악 공연으로 낭만적인 음악 쉼터를 선사합니다.</p>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="prog-badge">공연</div>
+                        <div class="prog-content">
+                            <h3>🎶 캐치! 티니핑 싱어롱 쇼</h3>
+                            <p class="prog-time">5월 4일(월) 13:00, 16:00 (하루 2회)</p>
+                            <p class="prog-desc">아이들의 우상! 티니핑 캐릭터 친구들이 무대 위에서 직접 신나는 노래와 춤을 보여주는 특별 싱어롱 콘서트와 포토타임.</p>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="prog-badge">이벤트</div>
+                        <div class="prog-content">
+                            <h3>🎤 청춘양구 군민 가요제</h3>
+                            <p class="prog-time">5월 5일(화) 15:00 - 18:00 (폐막식 포함)</p>
+                            <p class="prog-desc">치열한 예선을 뚫고 올라온 양구 군민과 방문객들이 펼치는 유쾌하고 열정적인 노래 자랑 대회 및 풍성한 시상식.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Food & Sales -->
+            <div class="tab-content" id="food-sales">
+                <div class="program-grid">
+                    <div class="program-card">
+                        <div class="prog-badge premium">인기</div>
+                        <div class="prog-content">
+                            <h3>🥩 대형 곰취 삼겹살 화로구이 존</h3>
+                            <p class="prog-time">매일 11:00 - 20:00 (다회용기 제공)</p>
+                            <p class="prog-desc">축제 최고의 하이라이트! 갓 딴 신선한 곰취 잎을 현장에서 구매해 야외 바베큐 존에서 노릇노릇한 삼겹살과 함께 싸서 먹는 황홀한 먹거리 존입니다.</p>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="prog-badge">마켓</div>
+                        <div class="prog-content">
+                            <h3>🛒 DMZ 청정 농특산물 직거래 장터</h3>
+                            <p class="prog-time">상설 운영 (09:00 - 19:00)</p>
+                            <p class="prog-desc">양구 농가에서 직접 수확한 프리미엄 곰취 잎사귀뿐만 아니라 시래기, 사과, 아스파라거스 등 우수한 청정 농산물을 유통 단계 없이 산지 직송 가격으로 구매하세요.</p>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="prog-badge">푸드</div>
+                        <div class="prog-content">
+                            <h3>🥟 곰취 향토음식관</h3>
+                            <p class="prog-time">상설 운영 (10:00 - 21:00)</p>
+                            <p class="prog-desc">양구군 부녀회와 지역 상인들이 협업하여 곰취 모듬전, 곰취 전병, 곰취 도토리묵 무침, 곰취 찐빵 등 향긋한 풍미가 깃든 특색 있는 향토 음식을 선보입니다.</p>
+                        </div>
+                    </div>
+                    <div class="program-card">
+                        <div class="prog-badge">판매</div>
+                        <div class="prog-content">
+                            <h3>🍶 명품 곰취 생막걸리 부스</h3>
+                            <p class="prog-time">매일 12:00 - 19:00 (성인 인증 필수)</p>
+                            <p class="prog-desc">양구의 전통 양조 기술로 빚어낸 곰취 생막걸리를 무료 시음하고, 은은한 풀 향과 청량한 탄산이 조화를 이루는 명품 전통주를 특별 할인가에 만나보세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Game Section -->
+    <section class="gomchwi-game section-padding" id="game">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="subtitle">MINI GAME</span>
+                <h2>🌿 가상 곰취 채취 체험 게임</h2>
+                <p>하늘에서 떨어지는 싱싱한 로얄 곰취를 20초 안에 최대한 많이 바구니로 받아 채취해 보세요!<br>시든 잎사귀나 독초(잡초)를 획득하면 점수가 깎이니 주의해야 합니다!</p>
+            </div>
+
+            <!-- Game Center Console -->
+            <div class="game-wrapper">
+                <div class="game-hud">
+                    <div class="hud-item">
+                        <span class="hud-label">SCORE</span>
+                        <span class="hud-value" id="game-score">0</span>
+                    </div>
+                    <div class="hud-item">
+                        <span class="hud-label">TIME</span>
+                        <span class="hud-value" id="game-time">20s</span>
+                    </div>
+                    <div class="hud-item">
+                        <span class="hud-label">BEST</span>
+                        <span class="hud-value" id="game-high-score">0</span>
+                    </div>
+                </div>
+
+                <div class="game-screen-container">
+                    <canvas id="game-canvas" width="800" height="450"></canvas>
+                    
+                    <!-- Game Overlay -->
+                    <div class="game-overlay" id="game-overlay">
+                        <div class="overlay-content">
+                            <span class="overlay-icon">🌿</span>
+                            <h3 id="overlay-title">로얄 곰취 채취 시작!</h3>
+                            <p id="overlay-desc">좌우 방향키(←, →)를 누르거나, 마우스/터치로 바구니를 좌우로 움직여 싱싱한 곰취 잎을 받으세요.</p>
+                            <div class="item-guide">
+                                <div><span class="item-pic green">🌿</span> <b>로얄 곰취 (+10점)</b></div>
+                                <div><span class="item-pic brown">🍂</span> <b>시든 잎 (-5점)</b></div>
+                                <div><span class="item-pic weed">☠️</span> <b>독초/잡초 (-10점)</b></div>
+                            </div>
+                            <button class="btn-primary" id="start-game-btn">게임 시작하기</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-controls-helper">
+                    <p>💡 <b>데스크톱:</b> 키보드 좌우 화살표 키 또는 마우스 이동 | <b>모바일:</b> 화면 하단 좌우 터치 패드 또는 슬라이드</p>
+                    <div class="mobile-only-controls">
+                        <button class="ctrl-btn" id="btn-left">◀ LEFT</button>
+                        <button class="ctrl-btn" id="btn-right">RIGHT ▶</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gourmet Section -->
+    <section class="gomchwi-gourmet section-padding" id="gourmet">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="subtitle">GOMCHWI GOURMET</span>
+                <h2>양구 곰취 대표 먹거리</h2>
+                <p>축제에서 맛볼 수 있는 향긋한 곰취 요리들입니다. 카드를 클릭해 상세 레시피와 꿀팁을 확인해 보세요!</p>
+            </div>
+
+            <div class="gourmet-grid">
+                <!-- Recipe 1 -->
+                <div class="gourmet-card" data-recipe="samgyeopsal">
+                    <div class="gourmet-badge">인기 최고</div>
+                    <div class="gourmet-img-placeholder">
+                        <span class="gourmet-emoji">🥩</span>
+                    </div>
+                    <div class="gourmet-info">
+                        <h3>곰취 삼겹살 쌈</h3>
+                        <p>바삭하게 구운 고소한 삼겹살과 알싸하면서도 향긋한 생 곰취의 환상적인 하모니.</p>
+                        <span class="view-recipe-btn">레시피 보기 →</span>
+                    </div>
+                </div>
+                
+                <!-- Recipe 2 -->
+                <div class="gourmet-card" data-recipe="ssambap">
+                    <div class="gourmet-badge">웰빙 건강</div>
+                    <div class="gourmet-img-placeholder">
+                        <span class="gourmet-emoji">🍙</span>
+                    </div>
+                    <div class="gourmet-info">
+                        <h3>정갈한 곰취 쌈밥</h3>
+                        <p>살짝 쪄내 한결 부드러워진 곰취 잎에 매콤달콤한 특제 약고추장 밥을 담아낸 한 입 별미.</p>
+                        <span class="view-recipe-btn">레시피 보기 →</span>
+                    </div>
+                </div>
+
+                <!-- Recipe 3 -->
+                <div class="gourmet-card" data-recipe="jeon">
+                    <div class="gourmet-badge">바삭 바삭</div>
+                    <div class="gourmet-img-placeholder">
+                        <span class="gourmet-emoji">🥞</span>
+                    </div>
+                    <div class="gourmet-info">
+                        <h3>바삭한 곰취 모듬전</h3>
+                        <p>곰취 잎을 통째로 올리거나 다진 채소와 버무려 바삭하고 고소하게 구워낸 전.</p>
+                        <span class="view-recipe-btn">레시피 보기 →</span>
+                    </div>
+                </div>
+
+                <!-- Recipe 4 -->
+                <div class="gourmet-card" data-recipe="tteok">
+                    <div class="gourmet-badge">전통 떡</div>
+                    <div class="gourmet-img-placeholder">
+                        <span class="gourmet-emoji">🍡</span>
+                    </div>
+                    <div class="gourmet-info">
+                        <h3>향긋한 곰취 찰떡</h3>
+                        <p>찰기 가득한 찹쌀에 생 곰취 잎을 가득 빻아 넣어 씹을수록 향긋함이 퍼지는 쫄깃한 떡.</p>
+                        <span class="view-recipe-btn">레시피 보기 →</span>
+                    </div>
+                </div>
+
+                <!-- Recipe 5 -->
+                <div class="gourmet-card" data-recipe="makgeolli">
+                    <div class="gourmet-badge">명품 특산주</div>
+                    <div class="gourmet-img-placeholder">
+                        <span class="gourmet-emoji">🍶</span>
+                    </div>
+                    <div class="gourmet-info">
+                        <h3>명품 곰취 생막걸리</h3>
+                        <p>천연 암반수와 양구 곰취 추출물을 발효시켜 만든 청량하고 목 넘김이 상쾌한 전통 약주.</p>
+                        <span class="view-recipe-btn">레시피 보기 →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Map Section -->
+    <section class="gomchwi-venue section-padding" id="venue">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="subtitle">VENUE & DIRECTIONS</span>
+                <h2>축제 오시는 길</h2>
+                <p>양구 레포츠공원에서 자연과 함께 기다리고 있겠습니다.</p>
+            </div>
+
+            <div class="venue-grid">
+                <div class="venue-info-box">
+                    <div class="venue-address">
+                        <h3>📍 축제 장소</h3>
+                        <p class="address-text">강원특별자치도 양구군 양구읍 서천리 267 (레포츠공원 일원)</p>
+                        <div class="map-shortcut-buttons">
+                            <a href="https://map.naver.com/v5/search/%EC%96%96%EA%B5%AC%EB%A0%88%ED%8F%AC%EC%B8%A0%EA%B3%B5%EC%9B%90" target="_blank" class="map-btn naver">네이버 지도 바로가기</a>
+                            <a href="https://map.kakao.com/?q=%EC%96%96%EA%B5%AC%EB%A0%88%ED%8F%AC%EC%B8%A0%EA%B3%B5%EC%9B%90" target="_blank" class="map-btn kakao">카카오 맵 바로가기</a>
+                        </div>
+                    </div>
+                    
+                    <div class="transport-routes">
+                        <div class="route-item">
+                            <span class="route-icon">🚗</span>
+                            <div class="route-desc">
+                                <h4>자가용 이용 시</h4>
+                                <p>서울양양고속도로 → 춘천IC → 배후령터널 → 양구송청삼거리 → 레포츠공원 (약 1시간 50분 소요)</p>
+                            </div>
+                        </div>
+                        <div class="route-item">
+                            <span class="route-icon">🚌</span>
+                            <div class="route-desc">
+                                <h4>시외버스 이용 시</h4>
+                                <p>동서울터미널 또는 춘천시외버스터미널 → 양구시외버스터미널 하차 (도보 15분 또는 택시 3분 거리)</p>
+                            </div>
+                        </div>
+                        <div class="route-item">
+                            <span class="route-icon">🚂</span>
+                            <div class="route-desc">
+                                <h4>ITX-청춘 (철도) 이용 시</h4>
+                                <p>용산/청량리역 → 남춘천역 하차 → 춘천역 버스환승 또는 춘천터미널에서 양구행 버스 탑승</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="venue-visual-map">
+                    <img src="images/map_new.png" alt="양구 관광 맵 참고" class="ref-map-img">
+                    <div class="map-overlay-badge">Yanggu Reports Park</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gomchwi-footer">
+        <div class="container footer-container">
+            <div class="footer-info">
+                <div class="footer-logo">YANGGU TOUR & GOMCHWI FESTIVAL</div>
+                <p>24325 강원특별자치도 양구군 양구읍 관공서로 38 양구군청 / 양구문화재단</p>
+                <p>축제 문의 및 예약 : 033-480-2114 / 033-480-7200</p>
+                <p class="copyright">&copy; YANGGU-GUN CULTURE FOUNDATION. ALL RIGHTS RESERVED.</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">포털 홈으로</a>
+                <a href="index.html#attractions">양구 9경 소개</a>
+                <a href="https://www.ygtour.kr" target="_blank">양구관광 공식포털</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Gourmet Modal -->
+    <div id="gourmet-modal" class="modal">
+        <div class="modal-content gourmet-modal-content">
+            <span class="close-btn" id="close-gourmet-modal">&times;</span>
+            <div class="modal-header-gourmet">
+                <span id="modal-gourmet-emoji" class="modal-emoji">🌿</span>
+                <div>
+                    <h3 id="modal-gourmet-title">요리명</h3>
+                    <span id="modal-gourmet-badge" class="gourmet-tag">대표메뉴</span>
+                </div>
+            </div>
+            <div class="modal-body-gourmet">
+                <div class="recipe-section">
+                    <h4>🥗 주재료</h4>
+                    <p id="modal-gourmet-ingredients">재료 목록...</p>
+                </div>
+                <div class="recipe-section">
+                    <h4>🍳 조리 순서</h4>
+                    <ol id="modal-gourmet-steps">
+                        <li>순서 1...</li>
+                        <li>순서 2...</li>
+                    </ol>
+                </div>
+                <div class="recipe-section tip-box">
+                    <h4>💡 요리 꿀팁 & 매칭 음식</h4>
+                    <p id="modal-gourmet-tip">꿀팁 정보...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Translate API -->
+    <div id="google_translate_element" style="display:none;"></div>
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ko',
+                includedLanguages: 'ko,en,zh-CN,ja',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Script imports -->
+    <script src="js/gomchwi.js"></script>
+</body>
+</html>
