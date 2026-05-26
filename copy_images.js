@@ -1,13 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const srcDir = 'C:\\Users\\MasterPc\\.gemini\\antigravity-ide\\brain\\c3c5ea6a-54c3-416e-a4d9-74cb605a45e8';
+const srcDir = 'C:\\Users\\MasterPc\\.gemini\\antigravity-ide\\brain\\23078a11-b2f7-4a09-b97d-dd079cfc7ec2';
 const destDir = 'c:\\Users\\MasterPc\\Desktop\\kamci231.github.io\\images';
 
 const files = [
-    { src: 'gomchwi_hero_1779770060899.png', dest: 'gomchwi_hero.png' },
-    { src: 'gomchwi_basket_1779770081077.png', dest: 'gomchwi_basket.png' },
-    { src: 'gomchwi_dish_1779770098688.png', dest: 'gomchwi_dish.png' }
+    { src: 'gomchwi_hero_1779771256525.png', dest: 'gomchwi_hero.png' }
 ];
 
 files.forEach(file => {
