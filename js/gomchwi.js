@@ -717,4 +717,79 @@ document.addEventListener('DOMContentLoaded', () => {
         // Attach Trigger to button
         startBtn.addEventListener('click', startGame);
     }
+
+    // Helper function to show a premium toast notification
+    function showToast(message, isError = false) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        if (isError) toast.classList.add('error');
+        
+        toast.innerHTML = isError ? `❌ ${message}` : `✔️ ${message}`;
+        document.body.appendChild(toast);
+        
+        // Trigger show animation
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 10);
+        
+        // Hide and remove after 4 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toast.remove();
+            }, 400);
+        }, 4000);
+    }
+
+    // EmailJS Inquiry Form Integration for Festival Page
+    const contactForm = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('form-submit-btn');
+    
+    if (contactForm && submitBtn) {
+        const btnText = submitBtn.querySelector('.btn-text');
+        const spinner = submitBtn.querySelector('.spinner-btn');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic input validations
+            const fromName = document.getElementById('from_name').value.trim();
+            const replyTo = document.getElementById('reply_to').value.trim();
+            const messageVal = document.getElementById('message').value.trim();
+            const consentChecked = document.getElementById('consent').checked;
+            
+            if (!fromName || !replyTo || !messageVal) {
+                showToast("모든 필수 입력 항목을 채워주세요.", true);
+                return;
+            }
+            
+            if (!consentChecked) {
+                showToast("개인정보 수집 동의가 필요합니다.", true);
+                return;
+            }
+            
+            // Set loading state on button
+            submitBtn.disabled = true;
+            if (btnText) btnText.textContent = "전송 중...";
+            if (spinner) spinner.style.display = "inline-block";
+            
+            // Trigger EmailJS Form Send
+            // service_j5s7e7v, template_yf6jnyb
+            emailjs.sendForm('service_j5s7e7v', 'template_yf6jnyb', this)
+                .then(() => {
+                    showToast("문의가 축제 운영사무국에 접수되었습니다! 🌿");
+                    contactForm.reset();
+                })
+                .catch((error) => {
+                    console.error("EmailJS Error:", error);
+                    showToast("이메일 전송에 실패하였습니다. 다시 시도해 주세요.", true);
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    if (btnText) btnText.textContent = "🌿 문의 전송하기";
+                    if (spinner) spinner.style.display = "none";
+                });
+        });
+    }
 });

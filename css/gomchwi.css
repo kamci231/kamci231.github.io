@@ -1101,3 +1101,48 @@
         padding: 20px;
     }
 }
+
+/* ==========================================
+   Festival Page Contact Form Custom Styles
+   ========================================== */
+.gomchwi-contact {
+    background: #e8f5e9;
+    border-top: 1px solid rgba(27,94,32,0.05);
+}
+
+.gomchwi-contact .contact-card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(27, 94, 32, 0.15);
+    box-shadow: 0 10px 30px rgba(27, 94, 32, 0.08);
+}
+
+.gomchwi-contact .contact-card:hover {
+    box-shadow: 0 15px 40px rgba(27, 94, 32, 0.15);
+}
+
+.gomchwi-contact .form-group label {
+    color: var(--gomchwi-dark);
+}
+
+.gomchwi-contact .form-group input:focus,
+.gomchwi-contact .form-group select:focus,
+.gomchwi-contact .form-group textarea:focus {
+    border-color: var(--gomchwi-primary);
+    box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.18);
+}
+
+.gomchwi-contact .btn-primary {
+    background-color: var(--gomchwi-primary);
+    border-color: var(--gomchwi-primary);
+    box-shadow: 0 4px 15px rgba(27, 94, 32, 0.3);
+}
+
+.gomchwi-contact .btn-primary:hover {
+    background-color: #fff;
+    color: var(--gomchwi-primary);
+    border-color: var(--gomchwi-primary);
+}
+
+.gomchwi-contact .spinner-btn {
+    border-top-color: var(--gomchwi-primary);
+}

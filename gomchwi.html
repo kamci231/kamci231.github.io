@@ -448,6 +448,63 @@
         </div>
     </section>
 
+    <!-- Contact Form Section -->
+    <section class="gomchwi-contact section-padding" id="contact">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="subtitle">FESTIVAL INQUIRY</span>
+                <h2>곰취 축제 문의 및 단체 예약</h2>
+                <p>축제 부스 참여, 공연 관련 제안, 단체 버스 대절 예약 등 축제 관련 궁금한 사항을 적어 전송해 주세요.</p>
+            </div>
+            
+            <div class="contact-wrapper">
+                <div class="contact-card">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="from_name">성함 / 단체명 <span class="required">*</span></label>
+                                <input type="text" id="from_name" name="from_name" required placeholder="예: 홍길동">
+                            </div>
+                            <div class="form-group">
+                                <label for="reply_to">이메일 주소 <span class="required">*</span></label>
+                                <input type="email" id="reply_to" name="reply_to" required placeholder="example@email.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="inquiry_type">문의 구분 <span class="required">*</span></label>
+                            <select id="inquiry_type" name="inquiry_type" required>
+                                <option value="" disabled selected>문의 분야를 선택해 주세요</option>
+                                <option value="festival-general">축제 일반 문의</option>
+                                <option value="booth">특산물 판매/부스 참가 신청</option>
+                                <option value="group-booking">단체 채취 체험 및 식사 예약</option>
+                                <option value="performance-adv">협찬 및 공연 버스킹 제안</option>
+                                <option value="other">기타</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">상세 문의 사항 <span class="required">*</span></label>
+                            <textarea id="message" name="message" rows="5" required placeholder="문의 사항이나 예약 인원, 희망 날짜 등을 적어주세요."></textarea>
+                        </div>
+
+                        <div class="form-consent">
+                            <input type="checkbox" id="consent" required>
+                            <label for="consent">개인정보 수집 및 이메일 발송 이용에 동의합니다. <span class="required">*</span></label>
+                        </div>
+                        
+                        <div class="form-submit-container">
+                            <button type="submit" id="form-submit-btn" class="btn-primary">
+                                <span class="btn-text">🌿 문의 전송하기</span>
+                                <span class="spinner-btn" style="display:none;"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="gomchwi-footer">
         <div class="container footer-container">
@@ -508,6 +565,14 @@
         }
     </script>
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("RoofPqeLnDGH3KtDEBs-s");
+        })();
+    </script>
 
     <!-- Script imports -->
     <script src="js/gomchwi.js"></script>

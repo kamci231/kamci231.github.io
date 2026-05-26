@@ -315,6 +315,63 @@
         </div>
     </div>
 
+    <!-- Contact Form Section -->
+    <section class="contact-section section-padding" id="contact">
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="subtitle">CONTACT US</span>
+                <h2>양구 여행 문의 및 소식 구독</h2>
+                <p>양구 관광에 관해 궁금한 점이 있으시거나 새로운 축제/여행 소식을 메일로 받고 싶으시다면 언제든 문의해 주세요.</p>
+            </div>
+            
+            <div class="contact-wrapper">
+                <div class="contact-card">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="from_name">성함 / 단체명 <span class="required">*</span></label>
+                                <input type="text" id="from_name" name="from_name" required placeholder="예: 홍길동">
+                            </div>
+                            <div class="form-group">
+                                <label for="reply_to">이메일 주소 <span class="required">*</span></label>
+                                <input type="email" id="reply_to" name="reply_to" required placeholder="example@email.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="inquiry_type">문의 유형 <span class="required">*</span></label>
+                            <select id="inquiry_type" name="inquiry_type" required>
+                                <option value="" disabled selected>문의 유형을 선택해 주세요</option>
+                                <option value="tour">일반 관광 문의</option>
+                                <option value="festival">축제 및 행사 관련 문의</option>
+                                <option value="group">단체 관광/버스 예약</option>
+                                <option value="newsletter">양구 관광 뉴스레터 구독</option>
+                                <option value="other">기타 건의 사항</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">문의 상세 내용 <span class="required">*</span></label>
+                            <textarea id="message" name="message" rows="5" required placeholder="문의하시고자 하는 내용을 상세히 적어주세요."></textarea>
+                        </div>
+
+                        <div class="form-consent">
+                            <input type="checkbox" id="consent" required>
+                            <label for="consent">개인정보 수집 및 이용(이메일 발송 목적)에 동의합니다. <span class="required">*</span></label>
+                        </div>
+                        
+                        <div class="form-submit-container">
+                            <button type="submit" id="form-submit-btn" class="btn-primary">
+                                <span class="btn-text">📨 문의하기 전송</span>
+                                <span class="spinner-btn" style="display:none;"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container footer-container">
@@ -367,6 +424,14 @@
         }
     </script>
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("RoofPqeLnDGH3KtDEBs-s");
+        })();
+    </script>
 
     <script src="js/script.js"></script>
 </body>
