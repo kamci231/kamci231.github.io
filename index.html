@@ -3,496 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>청춘양구 - 국토 정중앙 양구 관광</title>
-    <meta name="description" content="자연이 살아 숨쉬는 곳, 국토 정중앙 양구로 오세요. 한반도섬, 두타연, 펀치볼 등 아름다운 양구의 관광 명소를 소개합니다.">
-    <meta name="naver-site-verification" content="8299a6719f70f8feb949f250d8acf60e88ef2e18" />
-    <meta name="google-site-verification" content="MINPF8KITrN14I30_3DKwJh5dcaO5u_gt4GfWLZA7Mg" />
-    <!-- Open Graph SEO -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="청춘양구 - 국토 정중앙 양구 관광">
-    <meta property="og:description" content="자연이 살아 숨쉬는 곳, 국토 정중앙 양구로 오세요. 아름다운 양구의 관광 명소를 소개합니다.">
-    <meta property="og:image" content="images/hero_bg.png">
+    <meta name="description" content="양구군 직원 업무 분장 및 행정번호(내선번호)를 쉽고 빠르게 검색할 수 있는 프리미엄 검색 시스템입니다.">
+    <title>핑퐁스톱 - 민원 전화 핑퐁 방지 검색기</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Premium StyleSheet -->
+    <link rel="stylesheet" href="index.css">
+    <!-- SheetJS Excel Library -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
-    <!-- Shooting Stars Container -->
-    <div id="shooting-stars-container"></div>
-    <!-- Header -->
-    <header id="header">
-        <div class="header-container">
-            <a href="#" class="logo">
-                <span class="logo-icon">🌿</span>
-                <span class="logo-text">YANGGU TOUR</span>
-            </a>
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="#attractions">주요관광지</a></li>
-                    <li><a href="#themes">테마여행</a></li>
-                    <li><a href="gomchwi.html">축제·행사</a></li>
-                    <li><a href="#info">이용안내</a></li>
-                    <li><a href="https://www.google.com/maps/search/강원특별자치도+양구군+맛집" target="_blank" class="nav-map-link">구글지도</a></li>
-                </ul>
-            </nav>
-            <div class="header-right">
-                <div class="lang-dropdown">
-                    <button class="lang-btn">🌐 KOR <span class="arrow">▼</span></button>
-                    <ul class="lang-list">
-                        <li><a href="#" class="active" data-lang="ko" data-name="KOR">KOR (한국어)</a></li>
-                        <li><a href="#" data-lang="en" data-name="ENG">ENG (English)</a></li>
-                        <li><a href="#" data-lang="zh-CN" data-name="中文">中文 (Chinese)</a></li>
-                        <li><a href="#" data-lang="ja" data-name="日本語">日本語 (Japanese)</a></li>
-                    </ul>
-                </div>
-                <div class="mobile-menu-btn" aria-label="메뉴 열기" role="button" tabindex="0">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h1 class="fade-in-up" style="word-break: keep-all;">자연이 숨 쉬는 곳, <br>국토 정중앙 <strong style="white-space: nowrap; color: #aed581;">양구</strong></h1>
-            <p class="fade-in-up delay-1" style="word-break: keep-all;">일상의 피로를 씻어줄 청정 자연으로 초대합니다.</p>
-            <a href="#attractions" class="btn-primary fade-in-up delay-2">여행 시작하기</a>
-        </div>
-        <div class="scroll-indicator">
-            <span class="mouse">
-                <span class="wheel"></span>
-            </span>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main>
-        <!-- Attractions Section -->
-        <section class="attractions section-padding" id="attractions">
-            <div class="container">
-                <div class="section-title text-center">
-                    <span class="subtitle">MUST VISIT</span>
-                    <h2>양구 대표 관광 명소</h2>
-                    <p>발길 닿는 곳마다 그림이 되는 양구의 숨은 보석들을 만나보세요.</p>
+    <!-- App Container -->
+    <div id="app-container" class="dark-theme">
+        
+        <!-- Header Section -->
+        <header id="app-header">
+            <div class="header-content">
+                <div class="logo-area">
+                    <img src="logo_v2.png" alt="핑퐁스톱 로고" class="logo-image">
+                    <div class="logo-text">
+                        <h1>핑퐁스톱</h1>
+                        <span class="sub-logo">민원 전화 핑퐁 방지 검색기</span>
+                    </div>
                 </div>
                 
-                <div class="attraction-grid">
-                    <!-- Card 1 -->
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="images/hanbando.png" alt="한반도섬" loading="lazy" decoding="async">
-                            <div class="card-overlay">
-                                <a href="https://search.naver.com/search.naver?query=양구+한반도섬" target="_blank" class="btn-outline">네이버 정보 보기</a>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h3>한반도섬</h3>
-                            <p>파로호 상류에 조성된 국내 최대 규모의 인공 습지로, 한반도 모습을 닮아 붙여진 이름입니다.</p>
-                            <div class="tags">
-                                <span class="tag-btn" data-title="#자연생태" data-desc="양구의 자연생태는 멸종 위기종이 다수 서식하는 생물 다양성의 보고입니다. 생태 탐방로를 따라 오염되지 않은 순수한 자연을 직접 느껴보세요.">#자연생태</span>
-                                <span class="tag-btn" data-title="#산책로" data-desc="아름다운 호수와 숲길을 따라 조성된 편안한 산책로입니다. 남녀노소 누구나 걷기 좋게 정비되어 있어 힐링하기에 최적의 장소입니다.">#산책로</span>
-                            </div>
-                        </div>
+                <div class="header-controls">
+                    <!-- Statistics Quick Indicator -->
+                    <div class="quick-stats-pill" id="stats-pill">
+                        <span class="pulse-dot"></span>
+                        <span id="quick-count">로드 중...</span>
                     </div>
-
-                    <!-- Card 2 -->
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="images/dootayeon.png" alt="두타연" loading="lazy" decoding="async">
-                            <div class="card-overlay">
-                                <a href="https://search.naver.com/search.naver?query=양구+두타연" target="_blank" class="btn-outline">네이버 정보 보기</a>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h3>두타연</h3>
-                            <p>민간인 통제구역 내에 위치하여 50여 년간 숨겨져 있던 천혜의 자연을 간직한 생태계의 보고입니다.</p>
-                            <div class="tags">
-                                <span class="tag-btn" data-title="#청정계곡" data-desc="오랜 기간 사람의 발길이 닿지 않아 투명하고 맑은 물을 자랑하는 청정 계곡입니다. 한여름에도 얼음물처럼 시원함을 느낄 수 있습니다.">#청정계곡</span>
-                                <span class="tag-btn" data-title="#트레킹" data-desc="자연 그대로의 흙길을 걸으며 야생화와 숲의 향기를 즐길 수 있는 트레킹 코스입니다. 자연과 교감하는 최고의 걷기 여행을 선사합니다.">#트레킹</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="images/punchbowl.png" alt="펀치볼" loading="lazy" decoding="async">
-                            <div class="card-overlay">
-                                <a href="https://search.naver.com/search.naver?query=양구+펀치볼+마을" target="_blank" class="btn-outline">네이버 정보 보기</a>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h3>해안분지 (펀치볼)</h3>
-                            <p>해발 400~500m 고지대에 발달한 거대한 분지로, 화채 그릇을 닮았다 하여 펀치볼이라 불립니다.</p>
-                            <div class="tags">
-                                <span class="tag-btn" data-title="#지질명소" data-desc="운석 충돌설과 차별 침식설 등 다양한 학술적 가치를 지닌 독특한 지형입니다. 교과서에서만 보던 거대한 분지 지형을 한눈에 조망할 수 있습니다.">#지질명소</span>
-                                <span class="tag-btn" data-title="#안보관광" data-desc="분단의 아픔과 평화의 중요성을 동시에 느낄 수 있는 안보 현장입니다. 제4땅굴, 을지전망대 등 생생한 역사의 현장을 체험할 수 있습니다.">#안보관광</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="images/museum.png" alt="박수근미술관" loading="lazy" decoding="async">
-                            <div class="card-overlay">
-                                <a href="https://search.naver.com/search.naver?query=양구+박수근미술관" target="_blank" class="btn-outline">네이버 정보 보기</a>
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <h3>박수근미술관</h3>
-                            <p>한국의 대표적인 서민 화가 박수근 화백의 생가터에 건립된 아름다운 건축미를 자랑하는 미술관입니다.</p>
-                            <div class="tags">
-                                <span class="tag-btn" data-title="#문화예술" data-desc="박수근 화백의 소박하고 진실한 삶과 예술 혼이 살아 숨 쉬는 공간입니다. 그의 원화 작품과 다양한 현대 미술 전시를 관람할 수 있습니다.">#문화예술</span>
-                                <span class="tag-btn" data-title="#건축미" data-desc="자연 지형을 거스르지 않고 조화롭게 설계된 건축물 자체로도 예술 작품입니다. 돌담과 산책로가 어우러져 평온한 분위기를 자아냅니다.">#건축미</span>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    <!-- Dark/Light Theme Toggle Button -->
+                    <button id="theme-toggle-btn" aria-label="화면 테마 변경" title="다크/라이트 모드 전환">
+                        <span class="toggle-icon dark-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></svg>
+                        </span>
+                        <span class="toggle-icon light-only">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                        </span>
+                    </button>
                 </div>
             </div>
-        </section>
+        </header>
 
-        <!-- Theme Travel Section (Yanggu 9 Views) -->
-        <section class="themes section-padding" id="themes">
-            <div class="container">
-                <div class="section-title text-center">
-                    <span class="subtitle">YANGGU 9 VIEWS</span>
-                    <h2>양구 9경 테마여행</h2>
-                    <p>양구의 아름다운 9가지 숨겨진 명소를 만나보세요.</p>
-                </div>
-                <div class="theme-grid">
-                    <div class="theme-card" data-title="1경 양구수목원" data-desc="DMZ 인근의 맑은 공기와 수많은 자생식물이 어우러진 생태 체험의 산실입니다." data-image="https://www.ygtour.kr/upload/cont/2020/1112/202011121605143998741181.jpg">
-                        <div class="theme-image" style="background-image: url('https://www.ygtour.kr/upload/cont/2020/1112/202011121605143998741181.jpg');"></div>
-                        <div class="theme-info"><h3>1경 양구수목원</h3></div>
-                    </div>
-                    <div class="theme-card" data-title="2경 한반도섬" data-desc="파로호 상류에 조성된 국내 최대 규모의 인공 습지로, 한반도 모습을 그대로 본떠 만들었습니다." data-image="https://www.ygtour.kr/upload/cont/2020/1118/202011181605677649277064.jpg">
-                        <div class="theme-image" style="background-image: url('https://www.ygtour.kr/upload/cont/2020/1118/202011181605677649277064.jpg');"></div>
-                        <div class="theme-info"><h3>2경 한반도섬</h3></div>
-                    </div>
-                    <div class="theme-card" data-title="3경 두타연" data-desc="민간인 통제선 북방에 위치하여 천혜의 자연을 간직한 생태계의 보고이자 안보 관광지입니다." data-image="https://www.ygtour.kr/upload/cont/2020/1124/202011241606205550338017.jpg">
-                        <div class="theme-image" style="background-image: url('https://www.ygtour.kr/upload/cont/2020/1124/202011241606205550338017.jpg');"></div>
-                        <div class="theme-info"><h3>3경 두타연</h3></div>
-                    </div>
-                    <div class="theme-card" data-title="4경 양구군립박수근미술관" data-desc="가장 한국적인 화가 박수근 화백의 삶과 예술 세계를 기리기 위해 그의 생가터에 건립된 미술관입니다." data-image="https://www.ygtour.kr/upload/cont/2020/1229/202012291609207874756011.jpg">
-                        <div class="theme-image" style="background-image: url('https://www.ygtour.kr/upload/cont/2020/1229/202012291609207874756011.jpg');"></div>
-                        <div class="theme-info"><h3>4경 박수근미술관</h3></div>
-                    </div>
-                    <div class="theme-card" data-title="5경 양구백자박물관" data-desc="조선백자의 시원지로서 양구 백토의 우수성과 백자 문화를 체험할 수 있는 곳입니다." data-image="https://www.ygtour.kr/upload/cont/2020/1118/202011181605677994588068.jpg">
-                        <div class="theme-image" style="background-image: url('https://www.ygtour.kr/upload/cont/2020/1118/202011181605677994588068.jpg');"></div>
-                        <div class="theme-info"><h3>5경 양구백자박물관</h3></div>
-                    </div>
-                    <div class="theme-card" data-title="6경 펀치볼" data-desc="화채 그릇을 닮아 펀치볼이라 불리는, 해발 400~500m 고지대에 발달한 거대한 분지입니다." data-image="https://www.ygtour.kr/upload/cont/2020/1117/202011171605600358770039.jpg">
-                        <div class="theme-image" style="background-image: url('https://www.ygtour.kr/upload/cont/2020/1117/202011171605600358770039.jpg');"></div>
-                        <div class="theme-info"><h3>6경 펀치볼</h3></div>
-                    </div>
-                    <div class="theme-card" data-title="7경 양구 봉화산" data-desc="국토의 정중앙에 위치하며, 매년 새해맞이 행사 등 주민들의 사랑을 받는 힐링 명산입니다." data-image="https://www.ygtour.kr/upload/cont/2024/0807/202408071723007974047042.jpg">
-                        <div class="theme-image" style="background-image: url('https://www.ygtour.kr/upload/cont/2024/0807/202408071723007974047042.jpg');"></div>
-                        <div class="theme-info"><h3>7경 양구 봉화산</h3></div>
-                    </div>
-                    <div class="theme-card" data-title="8경 상무룡출렁다리" data-desc="파로호의 아름다운 절경을 발아래에 두고 스릴을 만끽하며 걸을 수 있는 수상 출렁다리입니다." data-image="https://www.ygtour.kr/upload/cont/2024/0319/202403191710807301803061.png">
-                        <div class="theme-image" style="background-image: url('https://www.ygtour.kr/upload/cont/2024/0319/202403191710807301803061.png');"></div>
-                        <div class="theme-info"><h3>8경 상무룡출렁다리</h3></div>
-                    </div>
-                    <div class="theme-card" data-title="9경 광치계곡" data-desc="울창한 숲과 맑은 계곡물이 어우러져 여름철 최고의 피서지로 손꼽히는 청정 계곡입니다." data-image="https://www.ygtour.kr/upload/cont/2020/1117/202011171605601072748052.jpg">
-                        <div class="theme-image" style="background-image: url('https://www.ygtour.kr/upload/cont/2020/1117/202011171605601072748052.jpg');"></div>
-                        <div class="theme-info"><h3>9경 광치계곡</h3></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Featured Festival Section -->
-        <section class="featured-festival section-padding" id="festivals">
-            <div class="container">
-                <div class="section-title text-center">
-                    <span class="subtitle">UPCOMING EVENT</span>
-                    <h2>양구 대표 축제</h2>
-                    <p>자연이 빚어낸 최고의 향연, 양구의 대표 축제를 만나보세요.</p>
-                </div>
+        <!-- Main Workspace -->
+        <main id="app-main">
+            <div class="workspace-grid">
                 
-                <div class="featured-festival-card">
-                    <div class="fest-image">
-                        <div class="fest-overlay"></div>
-                        <span class="fest-badge">5월 대표 축제</span>
-                    </div>
-                    <div class="fest-details">
-                        <h3>제23회 청춘양구 곰취축제</h3>
-                        <span class="fest-schedule">📅 일정: 2026. 5. 2(토) ~ 5. 5(화) | 📍 장소: 양구 레포츠공원</span>
-                        <p>DMZ 인근 청정 자연에서 자라난 명품 '로얄 곰취'의 맛과 향을 가득 담은 축제! 신선한 곰취 삼겹살 파티, 전통 떡메치기, 다채로운 키즈 놀이터와 라이브 공연까지 펼쳐지는 힐링 축제로 여러분을 초대합니다.</p>
-                        <a href="gomchwi.html" class="btn-primary">축제 상세정보 & 게임 체험 ➔</a>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Information / Banner Section -->
-        <section class="info-banner" id="info">
-            <div class="container">
-                <div class="banner-content">
-                    <h2>스마트한 양구 여행의 시작</h2>
-                    <p>교통, 숙박, 음식점 정보까지 여행에 필요한 모든 정보를 한 곳에서 확인하세요.</p>
-                    <div class="btn-group">
-                        <a href="#" class="btn-primary">통합 예약 시스템</a>
-                        <a href="#" class="btn-secondary">관광 가이드북 다운로드</a>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Map Section -->
-        <section class="map-section section-padding" id="map">
-            <div class="container">
-                <div class="section-title text-center">
-                    <span class="subtitle">TOURIST MAP</span>
-                    <h2>양구 관광 지도</h2>
-                    <p>한눈에 보는 양구군의 주요 관광 명소</p>
-                </div>
-                <div class="map-container">
-                    <img src="images/map_new.png" alt="양구 관광 지도" class="tourist-map" loading="lazy" decoding="async">
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Family Sites -->
-    <div class="family-sites">
-        <div class="container site-select-container">
-            <select onchange="if(this.value) window.open(this.value, '_blank'); this.selectedIndex=0;">
-                <option value="">양구 숙박 테마</option>
-                <option value="https://search.naver.com/search.naver?query=양구+펜션">양구 펜션</option>
-                <option value="https://search.naver.com/search.naver?query=양구+캠핑장">양구 캠핑장</option>
-                <option value="https://search.naver.com/search.naver?query=양구+모텔+호텔">양구 모텔/호텔</option>
-                <option value="https://search.naver.com/search.naver?query=양구+글램핑">양구 글램핑</option>
-                <option value="https://search.naver.com/search.naver?query=양구+한옥마을">양구 한옥마을</option>
-                <option value="https://search.naver.com/search.naver?query=양구+KCP호텔">양구 KCP호텔</option>
-            </select>
-            <select onchange="if(this.value) window.open(this.value, '_blank'); this.selectedIndex=0;">
-                <option value="">관광지 테마</option>
-                <option value="https://search.naver.com/search.naver?query=양구+한반도섬">한반도섬</option>
-                <option value="https://search.naver.com/search.naver?query=양구+두타연">두타연</option>
-                <option value="https://search.naver.com/search.naver?query=양구+펀치볼">해안분지(펀치볼)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+박수근미술관">박수근미술관</option>
-                <option value="https://search.naver.com/search.naver?query=양구+수목원">양구수목원</option>
-                <option value="https://search.naver.com/search.naver?query=양구+백자박물관">백자박물관</option>
-                <option value="https://search.naver.com/search.naver?query=양구+국토정중앙천문대">국토정중앙천문대</option>
-                <option value="https://search.naver.com/search.naver?query=양구+안보관광지">안보관광지</option>
-            </select>
-            <select onchange="if(this.value) window.open(this.value, '_blank'); this.selectedIndex=0;">
-                <option value="">양구 음식 테마</option>
-                <option value="https://search.naver.com/search.naver?query=양구+시래기+맛집">시래기 요리</option>
-                <option value="https://search.naver.com/search.naver?query=양구+곰취+맛집">곰취 요리</option>
-                <option value="https://search.naver.com/search.naver?query=양구+막국수+맛집">양구 막국수</option>
-                <option value="https://search.naver.com/search.naver?query=양구+닭갈비+맛집">양구 닭갈비</option>
-                <option value="https://search.naver.com/search.naver?query=양구+오골계+맛집">양구 오골계 숯불구이</option>
-                <option value="https://search.naver.com/search.naver?query=양구+한우+맛집">양구 한우</option>
-                <option value="https://search.naver.com/search.naver?query=양구+두부+맛집">양구 촌두부</option>
-            </select>
-            <select onchange="if(this.value) window.open(this.value, '_blank'); this.selectedIndex=0;">
-                <option value="">양구 맛집 리스트</option>
-                <option value="https://search.naver.com/search.naver?query=양구+감람원">감람원 (삼계탕)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+광치막국수">광치막국수 (막국수)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+꽃보다+소">꽃보다 소 양구점 (숯불구이)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+도촌삼계탕">도촌삼계탕 (삼계탕)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+도촌막국수식당">도촌막국수식당 (막국수)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+돈+갈비">돈 갈비 (숯불구이)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+모범떡볶이">모범떡볶이 (떡볶이)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+비비큐+우쿠야">비비큐·우쿠야 (치킨, 돈까스)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+샤브향">샤브향 (고기류 샤브)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+소나무함흥냉면막국수">소나무함흥냉면막국수 (냉면)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+시래정">시래정 (시래기정식)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+양구수산횟집">양구수산횟집 (민물회, 매운탕)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+오래드림고원">오래드림고원 (식육)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+이가돈가">이가돈가 (숯불구이)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+장수오골계">장수오골계 (오골계구이, 탕류)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+청참치">청참치 (참치회, 바다회)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+최가네">최가네 (숯불구이)</option>
-                <option value="https://search.naver.com/search.naver?query=양구+회마을">회마을 (바다회, 매운탕)</option>
-            </select>
-        </div>
-    </div>
-
-    <!-- Contact Form Section -->
-    <section class="contact-section section-padding" id="contact">
-        <div class="container">
-            <div class="section-title text-center">
-                <span class="subtitle">CONTACT US</span>
-                <h2>양구 여행 문의 및 소식 구독</h2>
-                <p>양구 관광에 관해 궁금한 점이 있으시거나 새로운 축제/여행 소식을 메일로 받고 싶으시다면 언제든 문의해 주세요.</p>
-            </div>
-            
-            <div class="contact-wrapper">
-                <div class="contact-card">
-                    <form id="contact-form" class="contact-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="from_name">성함 / 단체명 <span class="required">*</span></label>
-                                <input type="text" id="from_name" name="from_name" required placeholder="예: 홍길동">
+                <!-- Search and Filter Console -->
+                <section id="search-console" class="fade-in">
+                    <div class="console-box">
+                        <!-- Unified Dynamic Search Bar -->
+                        <form id="search-form" action="" onsubmit="return false;">
+                            <div class="search-bar-container">
+                                <div class="search-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                </div>
+                                <input type="text" id="global-search-input" placeholder="담당업무 내용으로 검색..." autocomplete="off" autofocus lang="ko" spellcheck="false" autocorrect="off" autocapitalize="off">
+                                <button id="search-clear-btn" type="button" aria-label="검색어 초기화" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                </button>
+                                <button id="search-submit-btn" type="submit" class="search-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                    <span>찾기</span>
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="reply_to">이메일 주소 <span class="required">*</span></label>
-                                <input type="email" id="reply_to" name="reply_to" required placeholder="example@email.com">
-                            </div>
-                        </div>
+                        </form>
                         
-                        <div class="form-group">
-                            <label for="inquiry_type">문의 유형 <span class="required">*</span></label>
-                            <select id="inquiry_type" name="inquiry_type" required>
-                                <option value="" disabled selected>문의 유형을 선택해 주세요</option>
-                                <option value="tour">일반 관광 문의</option>
-                                <option value="festival">축제 및 행사 관련 문의</option>
-                                <option value="group">단체 관광/버스 예약</option>
-                                <option value="newsletter">양구 관광 뉴스레터 구독</option>
-                                <option value="other">기타 건의 사항</option>
+                        <!-- Advanced Dropdown Column Filters -->
+                        <div class="filter-controls-row">
+                            <div class="filter-group">
+                                <label for="filter-dept">실과소 필터</label>
+                                <select id="filter-dept">
+                                    <option value="">전체 실과소</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="filter-team">소속 팀 필터</label>
+                                <select id="filter-team">
+                                    <option value="">전체 소속 팀</option>
+                                </select>
+                            </div>
+
+                            <div class="action-buttons-group">
+                                <button id="btn-reset-dataset" class="secondary-btn" title="기본 데이터로 초기화" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                                    <span>데이터 초기화</span>
+                                </button>
+                                <button id="excel-upload-trigger-btn" class="secondary-btn" title="새로운 엑셀 파일 가져오기">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                    <span>엑셀 업로드</span>
+                                </button>
+                                <button id="btn-export-excel" class="secondary-btn" title="현재 검색 결과 엑셀로 다운로드">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    <span>결과 저장</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Search Results Grid Section -->
+                <section id="results-section" class="fade-in">
+                    <div class="results-header">
+                        <div class="results-summary">
+                            검색 결과 <span id="results-count" class="highlight-count">0</span>건
+                        </div>
+                        <div class="pagination-controls-top">
+                            <label for="page-size-select">보기:</label>
+                            <select id="page-size-select">
+                                <option value="10">10개씩</option>
+                                <option value="20" selected>20개씩</option>
+                                <option value="50">50개씩</option>
+                                <option value="100">100개씩</option>
                             </select>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="message">문의 상세 내용 <span class="required">*</span></label>
-                            <textarea id="message" name="message" rows="5" required placeholder="문의하시고자 하는 내용을 상세히 적어주세요."></textarea>
-                        </div>
+                    </div>
 
-                        <div class="form-consent">
-                            <input type="checkbox" id="consent" required>
-                            <label for="consent">개인정보 수집 및 이용(이메일 발송 목적)에 동의합니다. <span class="required">*</span></label>
+                    <!-- Main Grid Table Container -->
+                    <div class="table-outer-container">
+                        <div class="table-inner-container">
+                            <table id="directory-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60px;">번호</th>
+                                        <th style="width: 140px;" class="sortable" data-column="department">실과소 <span class="sort-indicator"></span></th>
+                                        <th style="width: 130px;" class="sortable" data-column="team">소속 팀 <span class="sort-indicator"></span></th>
+                                        <th class="sortable" data-column="duty">담당업무 <span class="sort-indicator"></span></th>
+                                        <th style="width: 150px;" class="sortable text-center" data-column="phone">행정번호 <span class="sort-indicator"></span></th>
+                                        <th style="width: 90px;" class="text-center">액션</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="directory-table-body">
+                                    <!-- Dynamic row contents injected here -->
+                                </tbody>
+                            </table>
+                            
+                            <!-- No Results State -->
+                            <div id="no-results-card" style="display: none;">
+                                <div class="no-results-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                                </div>
+                                <h3>검색 결과가 없습니다</h3>
+                                <p>검색 키워드를 바꾸거나 필터를 재조정해 보세요.</p>
+                            </div>
                         </div>
-                        
-                        <div class="form-submit-container">
-                            <button type="submit" id="form-submit-btn" class="btn-primary">
-                                <span class="btn-text">📨 문의하기 전송</span>
-                                <span class="spinner-btn" style="display:none;"></span>
+                    </div>
+
+                    <!-- Pagination Footer Controls -->
+                    <div class="pagination-container" id="pagination-nav">
+                        <button id="btn-prev-page" class="page-btn" aria-label="이전 페이지">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <div id="page-numbers-container" class="page-numbers">
+                            <!-- Dynamic page numbers -->
+                        </div>
+                        <button id="btn-next-page" class="page-btn" aria-label="다음 페이지">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Real-time Popular Search Keywords Section -->
+                    <div id="search-ranking-widget">
+                        <div class="ranking-header">
+                            <div class="ranking-title-area">
+                                <span class="ranking-emoji">🔥</span>
+                                <h2>인기 검색어 순위 (Top 30)</h2>
+                            </div>
+                            <div class="ranking-actions">
+                                <button id="btn-reset-ranks" title="검색 순위 초기화">초기화</button>
+                                <div class="ranking-carousel-controls">
+                                    <button id="btn-prev-rank" class="carousel-nav-btn" aria-label="이전 순위">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                                    </button>
+                                    <span id="rank-page-indicator">1 / 1</span>
+                                    <button id="btn-next-rank" class="carousel-nav-btn" aria-label="다음 순위">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ranking-carousel-viewport">
+                            <div class="ranking-carousel-track" id="ranking-list-track">
+                                <!-- Dynamic ranking items (30 items total, 5 per slide page) -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+            </div>
+        </main>
+
+        <!-- Dynamic Excel Import & Drag-Drop Modal -->
+        <div id="upload-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h2>엑셀 파일 가져오기</h2>
+                    <button class="modal-close-btn" id="upload-modal-close" aria-label="모달 닫기">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Drop Zone -->
+                    <div id="drop-zone" class="drop-zone-area">
+                        <div class="drop-zone-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </div>
+                        <p class="drop-zone-text">여기에 엑셀(.xlsx, .xls) 또는 .csv 파일을 드래그 앤 드롭 하거나 <span>파일 선택</span></p>
+                        <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" style="display: none;">
+                    </div>
+                    
+                    <!-- Advanced Import Settings -->
+                    <div class="import-settings">
+                        <div class="settings-title">가져오기 설정</div>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label for="import-encoding">파일 인코딩 (CSV 파일만 해당)</label>
+                                <select id="import-encoding">
+                                    <option value="949" selected>한국어 (CP949 / EUC-KR)</option>
+                                    <option value="utf8">유니코드 (UTF-8)</option>
+                                </select>
+                            </div>
+                            <div class="setting-item">
+                                <label for="import-mode">데이터 처리 모드</label>
+                                <select id="import-mode">
+                                    <option value="overwrite" selected>현재 데이터 덮어쓰기 (기본값)</option>
+                                    <option value="append">현재 데이터에 추가하기</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Import Preview Grid (Hidden until parsed) -->
+                    <div id="preview-section" class="preview-table-area" style="display: none;">
+                        <h4 class="preview-title">데이터 분석 미리보기 (<span id="preview-row-count">0</span>개 행 발견)</h4>
+                        <div class="preview-table-wrapper">
+                            <table id="preview-table">
+                                <thead>
+                                    <!-- Dynamic header -->
+                                </thead>
+                                <tbody id="preview-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-cancel-import" class="btn btn-outline">취소</button>
+                    <button id="btn-confirm-import" class="btn btn-primary" disabled>시스템에 적용하기</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Information Modal Popup -->
+        <div id="detail-modal" class="modal-overlay" style="display: none;">
+            <div class="modal-card detail-card-view">
+                <div class="modal-header header-border-none">
+                    <div class="detail-badge" id="detail-dept-badge">기획예산실</div>
+                    <button class="modal-close-btn" id="detail-modal-close" aria-label="모달 닫기">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                    </button>
+                </div>
+                <div class="modal-body pad-top-none">
+                    <div class="detail-main-info">
+                        <h2 id="detail-team-title">기획팀</h2>
+                        <div class="detail-phone-row">
+                            <span class="phone-label">행정 전화번호</span>
+                            <span class="phone-number" id="detail-phone-val">2120</span>
+                            <button id="btn-detail-phone-copy" class="phone-copy-badge-btn" title="전화번호 복사">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                                <span>복사</span>
                             </button>
                         </div>
-                    </form>
+                    </div>
+                    
+                    <div class="detail-divider"></div>
+                    
+                    <div class="detail-tasks-section">
+                        <div class="section-title-row">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                            <h3>상세 업무 분장</h3>
+                        </div>
+                        <div class="detail-tasks-list" id="detail-tasks-content">
+                            <!-- Bulleted parsed duties injected -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer footer-border-none">
+                    <button id="btn-detail-close" class="btn btn-primary full-width">확인</button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container footer-container">
-            <div class="footer-info">
-                <div class="footer-logo">YANGGU TOUR</div>
-                <p>24325 강원특별자치도 양구군 양구읍 관공서로 38 양구군청</p>
-                <p>관광문의 : 033-480-2114</p>
-                <p class="copyright">&copy; YANGGU-GUN. ALL RIGHTS RESERVED.</p>
-            </div>
-            <div class="footer-links">
-                <a href="#">개인정보처리방침</a>
-                <a href="#">이용약관</a>
-                <a href="#">찾아오시는 길</a>
-            </div>
+        <!-- Global Toast Notification Banner -->
+        <div id="toast-container" class="toast-wrapper">
+            <!-- Toast elements slide in here -->
         </div>
-    </footer>
 
-    <!-- Tag Modal -->
-    <div id="tag-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3 id="modal-title">태그 제목</h3>
-            <p id="modal-desc">태그 상세 설명입니다.</p>
-        </div>
+        <!-- Footer Area -->
+        <footer id="app-footer">
+            <p>© 2026 핑퐁스톱. Designed with premium aesthetics for optimal efficiency.</p>
+        </footer>
     </div>
 
-    <!-- Theme Modal -->
-    <div id="theme-modal" class="theme-modal">
-        <div class="theme-modal-content">
-            <span class="close-theme-modal">&times;</span>
-            <div class="theme-modal-image-container">
-                <img id="theme-modal-image" src="" alt="테마 이미지">
-            </div>
-            <div class="theme-modal-text">
-                <h2 id="theme-modal-title">테마 제목</h2>
-                <p id="theme-modal-desc">테마 설명</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Educational Notice Modal -->
-    <div id="education-modal" class="modal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease;">
-        <div class="modal-content" style="background: rgba(255, 255, 255, 0.95); border: 2px solid #2e7d32; border-radius: 24px; padding: 40px; max-width: 480px; width: 90%; text-align: center; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); transform: translateY(-30px); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; color: #333;">
-            <div style="font-size: 4.5rem; margin-bottom: 20px;">🎓</div>
-            <h3 style="color: #2e7d32; font-size: 1.6rem; font-weight: 900; margin-bottom: 15px; letter-spacing: -0.5px;">안내 말씀 드립니다</h3>
-            <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 30px; font-weight: 500; word-break: keep-all; color: #444;">
-                이 사이트는 <strong style="color: #2e7d32; font-weight: 700; border-bottom: 2px dashed #81c784; padding-bottom: 2px;">교육용 목적</strong>으로만 제작된 페이지입니다.<br>실제 양구군청 또는 축제 사무국 공식 홈페이지가 아님을 알려드립니다.
-            </p>
-            
-            <div style="display: flex; flex-direction: column; gap: 15px;">
-                <button id="close-edu-btn" class="btn-primary" style="width: 100%; padding: 14px 0; font-size: 1.05rem; border-radius: 50px; cursor: pointer; transition: all 0.3s; background-color: #2e7d32; border-color: #2e7d32;">
-                    확인 및 둘러보기
-                </button>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.85rem; color: #666; cursor: pointer; user-select: none;">
-                    <input type="checkbox" id="edu-today-check" style="width: 15px; height: 15px; cursor: pointer;">
-                    <label for="edu-today-check" style="cursor: pointer;">오늘 하루 이 창을 다시 열지 않기</label>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const eduModal = document.getElementById('education-modal');
-            const closeEduBtn = document.getElementById('close-edu-btn');
-            const eduTodayCheck = document.getElementById('edu-today-check');
-            
-            // Check if "Do not show today" is checked in localStorage
-            const hideEduDate = localStorage.getItem('hide_edu_modal');
-            const todayStr = new Date().toDateString();
-            
-            if (hideEduDate !== todayStr) {
-                // Show modal
-                eduModal.style.display = 'flex';
-                // Trigger transition
-                setTimeout(() => {
-                    eduModal.style.opacity = '1';
-                    eduModal.querySelector('.modal-content').style.transform = 'translateY(0)';
-                }, 50);
-            }
-            
-            const closeEduModal = () => {
-                if (eduTodayCheck.checked) {
-                    localStorage.setItem('hide_edu_modal', todayStr);
-                }
-                
-                eduModal.style.opacity = '0';
-                eduModal.querySelector('.modal-content').style.transform = 'translateY(-20px)';
-                setTimeout(() => {
-                    eduModal.style.display = 'none';
-                }, 400);
-            };
-            
-            closeEduBtn.addEventListener('click', closeEduModal);
-        });
-    </script>
-
-
-    <!-- Google Translate API -->
-    <div id="google_translate_element" style="display:none;"></div>
-    <script>
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'ko',
-                includedLanguages: 'ko,en,zh-CN,ja',
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init("RoofPqeLnDGH3KtDEBs-s");
-        })();
-    </script>
-
-    <script src="js/script.js"></script>
+    <!-- Preloaded Excel Data -->
+    <script src="data.js"></script>
+    <!-- Core Application Logic -->
+    <script src="app.js"></script>
 </body>
 </html>
